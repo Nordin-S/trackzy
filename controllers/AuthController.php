@@ -4,12 +4,13 @@ namespace app\controllers;
 
 use app\core\Application;
 use app\core\Controller;
-use app\core\DbModel;
+use app\core\form\emails\InviteMsg;
 use app\core\form\emails\PasswordResetMsg;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
 use app\models\GetUsers;
+use app\models\Invite;
 use app\models\Login;
 use app\models\RecoverPassword;
 use app\models\User;
@@ -49,7 +50,7 @@ class AuthController extends Controller
         if ($request->isPost()) {
             $user->loadData($request->getBody());
 
-            if ($user->validate() && $user->newUser()) {
+            if ($user->validate() && $user->insertNew()) {
                 Application::$app->session->setFlash('success', 'Thanks for registering');
                 Application::$app->response->redirect('/');
                 exit;
@@ -109,9 +110,37 @@ class AuthController extends Controller
         return $this->render('issues', ['title' => 'View Issues']);
     }
 
-    public function invite()
+    public function invite(Request $request)
     {
-        return $this->render('issues', ['title' => 'View Issues']);
+        $invite = new Invite();
+        $invite->loadData($request->getBody());
+
+        $isMember = (new User)->findUser(['email' => $invite->email], new User());
+        if ($isMember) {
+            Application::$app->session->setFlash('danger', "EMAIL: Entry with this email already a member");
+        }
+        if ($invite->validate() && !$isMember && $invite->execute()) {
+            $registerHref = Application::$app->config['domain'] . "/register?email=" . $invite->email . "&invite_token=" . $invite->invitecode;
+            $domainHref = "http://" . Application::$app->config['domain'];
+            $inviteMsg = new InviteMsg($registerHref, $domainHref, $invite->email);
+            try {
+                Application::$app->mail->addAddress($invite->email);
+                Application::$app->mail->Subject = $inviteMsg->getSubject();
+                Application::$app->mail->MsgHTML($inviteMsg->getMessage());
+                Application::$app->mail->AltBody = $inviteMsg->getAltBody();
+                Application::$app->mail->send();
+                Application::$app->session->setFlash('success', "successfully invited $invite->email");
+            } catch (Exception $e) {
+                $invite->addError('email', 'Could not send invitation mail email. Delete invited user and try again');
+            }
+        }
+        foreach ($invite->errors as $errorTag => $error) {
+            foreach ($error as $errorMsg) {
+                Application::$app->session->setFlash('danger', strtoupper($errorTag) . ': ' . $errorMsg);
+            }
+        }
+        Application::$app->response->redirect('/users-list');
+        exit;
     }
 
     public function recoverPassword(Request $request, Response $response)
@@ -119,14 +148,14 @@ class AuthController extends Controller
         $recoverPassword = new RecoverPassword();
         if ($request->isPost()) {
             $recoverPassword->loadData($request->getBody());
-            $foundUser = $recoverPassword->findUser(['email' => $recoverPassword->email]);
+            $foundUser = $recoverPassword->findUser(['email' => $recoverPassword->email], new RecoverPassword);
 
             if (!$foundUser) {
                 $recoverPassword->addError('email', 'User with given email does not exist');
             }
 
             if ($recoverPassword->validate() && $foundUser && $recoverPassword->updateAttributesWhere('email')) {
-                $recoverPassword->setUsername($foundUser->username) ?? '';
+                    $recoverPassword->setUsername($foundUser->username) ?? '';
                 $resetHref = Application::$app->config['domain'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
                 $domainHref = "http://" . Application::$app->config['domain'];
                 $passwordResetMsg = new PasswordResetMsg($resetHref, $domainHref, $recoverPassword->username);
@@ -139,8 +168,6 @@ class AuthController extends Controller
                     Application::$app->session->setFlash('success', 'Password recovery mail was sent successfully.');
                     Application::$app->response->redirect('/login');
                 } catch (Exception $e) {
-                    echo $e->getCode() . ' - ' . $e->getMessage();
-                    echo "Message could not be sent. Mailer Error: {" . $this->mail->ErrorInfo . "}";
                     $recoverPassword->addError('email', 'Could not send the password recovery email');
                     Application::$app->response->redirect('/recover-password');
                 }

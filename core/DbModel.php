@@ -12,6 +12,7 @@ use app\models\GetUsers;
 use app\models\Invite;
 use app\models\RecoverPassword;
 use PDO;
+use PDOException;
 
 abstract class DbModel extends Model
 {
@@ -21,7 +22,7 @@ abstract class DbModel extends Model
 
     abstract public static function primaryKey(): string;
 
-    public function newUser(): bool
+    public function insertNew(): bool
     {
         $tableName = $this->tableName();
         $attributes = $this->attributes();
@@ -32,8 +33,13 @@ abstract class DbModel extends Model
         foreach ($attributes as $attribute) {
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
-        $statement->execute();
-        return true;
+        try {
+            $statement->execute();
+            return true;
+        }catch (PDOException $e) {
+           echo $e->getMessage();
+           return false;
+        }
     }
 
     public function updateAttributesWhere($where): bool
@@ -55,9 +61,9 @@ abstract class DbModel extends Model
         return true;
     }
 
-    public static function findUser($where)
+    public static function findUser($where, $classType)
     {
-        $tableName = (new RecoverPassword)->tableName();
+        $tableName = $classType->tableName();
         $attributes = array_keys($where);
         $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
@@ -66,7 +72,11 @@ abstract class DbModel extends Model
         }
 
         $statement->execute();
-        return $statement->fetchObject(static::class);
+//        echo '<pre>';
+//        var_dump($statement->fetchObject(static::class) ?? false);
+//        echo '</pre>';
+//        exit;
+        return $statement->fetchObject(static::class) ?? false;
     }
 
     public static function getAllUsers()
@@ -78,26 +88,11 @@ abstract class DbModel extends Model
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function invite()
-    {
-        $tableName = (new Invite)->tableName();
-
-        $statement = self::prepare("INSERT INTO $tableName (" . implode(", ", $attributes) . ") 
-                VALUES(" . implode(', ', $params) . ")");
-        foreach ($attributes as $attribute) {
-            $statement->bindValue(":$attribute", $this->{$attribute});
-        }
-
-
-        $statement->execute();
-        return $statement->fetchAll(PDO::FETCH_OBJ);
-    }
 
     public static function prepare($sql)
     {
         return Application::$app->db->pdo->prepare($sql);
     }
-
 
 
 }

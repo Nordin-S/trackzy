@@ -29,7 +29,7 @@ class ResetPassword extends UserModel
 
     public function verifyResetLink(): bool
     {
-        $resetPassword = (new ResetPassword)->findUser(['email' => $this->email]);
+        $resetPassword = (new ResetPassword)->findUser(['email' => $this->email], new RecoverPassword);
         $isTrue = true;
         if (!$resetPassword) {
             $this->addError('recovery_token', 'User with given email does not exist');

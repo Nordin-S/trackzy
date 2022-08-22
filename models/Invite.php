@@ -7,12 +7,19 @@ use app\core\DbModel;
 class Invite extends DbModel
 {
     public string $email = '';
-    public int $role;
+    public mixed $role = '';
     public string $invitecode = '';
 
     public function execute()
     {
-        return parent::invite();
+        $this->role = match ($this->role) {
+            'admin' => 0,
+            'moderator' => 1,
+            'author' => 2,
+            default => null,
+        };
+        $this->invitecode = md5($this->email) . rand(10, 9999);
+        return parent::insertNew();
     }
 
     public function attributes(): array

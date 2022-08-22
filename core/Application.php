@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\models\User;
 use PHPMailer\PHPMailer\PHPMailer;
 
 date_default_timezone_set('Etc/UTC');
@@ -60,9 +61,9 @@ class Application
 
         $primaryValue = Application::$app->session->get('user');
         $hasAppliedMigrations = $this->db->getAppliedMigrations() != null;
-        if ($primaryValue && $this->userClass != null && $hasAppliedMigrations && $this->userClass::findUser([$this->userClass::primaryKey() => $primaryValue]) != null) {
+        if ($primaryValue && $this->userClass != null && $hasAppliedMigrations && $this->userClass::findUser([$this->userClass::primaryKey() => $primaryValue], new User) != null) {
             $primaryKey = $this->userClass::primaryKey();
-            $this->user = $this->userClass::findUser([$primaryKey => $primaryValue]);
+            $this->user = $this->userClass::findUser([$primaryKey => $primaryValue], new User);
         }
     }
 

@@ -9,12 +9,13 @@ $this->title = $title;
     <form action="/invite" method="post">
         <div class="d-flex flex-row px-2">
             <input type="text" class="mr-2 w-50 p-2" value="" name="email" placeholder="Invite email">
-            <select class="form-control mr-2 w-25 p-2" id="roles-select" name="role">
-                <option value="0">Admin</option>
-                <option value="1">Moderator</option>
-                <option value="2">User</option>
+            <select class="form-control mr-2 w-25 p-2" id="role" name="role">
+                <option value="">Role</option>
+                <option value="admin">Admin</option>
+                <option value="moderator">Moderator</option>
+                <option value="user">User</option>
             </select>
-            <button type="submit" class="btn ml-auto w-auto btn-primary rounded-lg float-right">Invite</button>
+            <button type="submit" name="submit" class="btn ml-auto w-auto btn-primary rounded-lg float-right">Invite</button>
         </div>
     </form>
     <hr>
@@ -68,7 +69,6 @@ $this->title = $title;
                         $userRole,
                         date("Y-m-d", strtotime($user->created_at)),
                         $user->id,
-
                     );
                 }
                 ?>

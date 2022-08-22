@@ -29,7 +29,7 @@ class SiteController extends Controller
         if ($request->isPost()) {
             $user->loadData($request->getBody());
 
-            if ($user->validate() && $user->newUser()) {
+            if ($user->validate() && $user->insertNew()) {
                 Application::$app->session->setFlash('success', 'Thanks for registering');
                 Application::$app->response->redirect('/');
                 exit;

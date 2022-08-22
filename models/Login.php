@@ -17,7 +17,7 @@ class Login extends User
 
     public function login()
     {
-        $user = (new User)->findUser(['email' => $this->email]);
+        $user = (new User)->findUser(['email' => $this->email], new User);
         if (!$user) {
             $this->addError('email', 'User with given email does not exist');
             return false;

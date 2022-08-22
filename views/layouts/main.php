@@ -91,8 +91,18 @@ use app\core\Application;
 
 <div class="container">
     <?php if (Application::$app->session->getFlash('success')): ?>
-        <div class="alert alert-success flash-alert">
+        <div class="alert alert-success flash-alert" id="flash-alert">
             <?php echo Application::$app->session->getFlash('success') ?>
+        </div>
+    <?php endif; ?>
+    <?php if (Application::$app->session->getFlash('warning')): ?>
+        <div class="alert alert-warning flash-alert" id="flash-alert">
+            <?php echo Application::$app->session->getFlash('warning') ?>
+        </div>
+    <?php endif; ?>
+    <?php if (Application::$app->session->getFlash('danger')): ?>
+        <div class="alert alert-danger flash-alert" id="flash-alert">
+            <?php echo Application::$app->session->getFlash('danger') ?>
         </div>
     <?php endif; ?>
     {{content}}
@@ -101,9 +111,8 @@ use app\core\Application;
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

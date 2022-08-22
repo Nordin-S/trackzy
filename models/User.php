@@ -19,10 +19,10 @@ class User extends UserModel
     public int $role = self::ROLE_GUEST;
     public string $passwordConfirmation = '';
 
-    public function newUser(): bool
+    public function insertNew(): bool
     {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        return parent::newUser();
+        return parent::insertNew();
     }
 
     public function rules(): array
