@@ -33,7 +33,7 @@ abstract class UserModel extends DbModel
         return 'id';
     }
 
-    
+
     public function getId(): int
     {
         return $this->id;

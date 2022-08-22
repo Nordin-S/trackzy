@@ -2,10 +2,7 @@
 
 namespace app\core;
 
-use app\models\User;
-use Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 
 date_default_timezone_set('Etc/UTC');
 
@@ -30,6 +27,8 @@ class Application
     public ?Controller $controller = null;
     public ?userModel $user;
     public View $view;
+    public PHPMailer $mail;
+    public string $email = 'trackzy.tracks@gmail.com';
 
     public function __construct($rootPath, array $config)
     {
@@ -44,6 +43,20 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
         $this->user = null;
+
+
+        $this->mail = new PHPMailer();
+//        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $this->mail->SMTPDebug = 0;
+        $this->mail->isSMTP();
+        $this->mail->Host = 'smtp.gmail.com';
+        $this->mail->SMTPAuth = true;
+        $this->mail->SMTPSecure = 'tls';
+        $this->mail->Port = 587;
+        $this->mail->Username = Application::$app->config['mail']['email'];
+        $this->mail->Password = Application::$app->config['mail']['password'];
+        $this->mail->setFrom(Application::$app->config['mail']['email'], 'Trackzy Tracks');
+        $this->mail->isHtml(true);
 
         $primaryValue = Application::$app->session->get('user');
         $hasAppliedMigrations = $this->db->getAppliedMigrations() != null;

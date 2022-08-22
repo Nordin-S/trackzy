@@ -77,6 +77,6 @@ $app->router->post('/recover-password', [AuthController::class, 'recoverPassword
 $app->router->post('/profile', [AuthController::class, 'profile']);
 $app->router->post('/users-list', [authController::class, 'usersList']);
 $app->router->post('/register', [AuthController::class, 'register']);
-
+$app->router->post('/invite', [AuthController::class, 'invite']);
 
 $app->run();

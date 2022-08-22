@@ -8,7 +8,10 @@
 
 namespace app\core;
 
+use app\models\GetUsers;
+use app\models\Invite;
 use app\models\RecoverPassword;
+use PDO;
 
 abstract class DbModel extends Model
 {
@@ -66,11 +69,35 @@ abstract class DbModel extends Model
         return $statement->fetchObject(static::class);
     }
 
+    public static function getAllUsers()
+    {
+        $tableName = (new GetUsers)->tableName();
+        $statement = self::prepare("SELECT * FROM $tableName");
+
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function invite()
+    {
+        $tableName = (new Invite)->tableName();
+
+        $statement = self::prepare("INSERT INTO $tableName (" . implode(", ", $attributes) . ") 
+                VALUES(" . implode(', ', $params) . ")");
+        foreach ($attributes as $attribute) {
+            $statement->bindValue(":$attribute", $this->{$attribute});
+        }
+
+
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
 
     public static function prepare($sql)
     {
         return Application::$app->db->pdo->prepare($sql);
     }
+
 
 
 }
