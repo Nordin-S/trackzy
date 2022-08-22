@@ -102,4 +102,13 @@ class Application
         $this->session->unsetSessionKey('user');
     }
 
+    public function resetPassword(DbModel $resetPassword)
+    {
+        $this->user = $resetPassword;
+        $className = get_class($resetPassword);
+        $primaryKey = $className::primaryKey();
+        $primaryValue = $resetPassword->{$primaryKey};
+        Application::$app->session->set('user', $primaryValue);
+        return true;
+    }
 }

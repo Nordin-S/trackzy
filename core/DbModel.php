@@ -9,7 +9,6 @@
 namespace app\core;
 
 use app\models\RecoverPassword;
-use app\models\User;
 
 abstract class DbModel extends Model
 {
@@ -34,15 +33,17 @@ abstract class DbModel extends Model
         return true;
     }
 
-    public function createTokenInDb(): bool
+    public function updateAttributesWhere($where): bool
     {
         $tableName = $this->tableName();
         $attributes = $this->attributes();
         $setParams = array_map(fn($a) => "$a = :$a", $attributes);
-        $statement = self::prepare("UPDATE $tableName SET " . implode(", ", $setParams) . " WHERE email = :email");
+        $statement = self::prepare("UPDATE $tableName SET " . implode(", ", $setParams) . " WHERE $where = :were");
         foreach ($attributes as $attribute) {
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
+        $statement->bindValue(":were", $this->{$where});
+
         try {
             $statement->execute();
         } catch (\PDOException $e) {
@@ -70,5 +71,6 @@ abstract class DbModel extends Model
     {
         return Application::$app->db->pdo->prepare($sql);
     }
+
 
 }

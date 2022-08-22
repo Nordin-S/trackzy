@@ -42,18 +42,18 @@ use app\core\Application;
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item<?php echo ($this->title === 'View Issues') ?  ' active' : ''; ?>">
                 <a class="nav-link" href="/">Issues</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item<?php echo ($this->title === 'Create Issue') ?  ' active' : ''; ?>">
                 <a class="nav-link" href="/new-issue">New issue</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item<?php echo ($this->title === 'Registered users list') ?  ' active' : ''; ?>">
                 <a class="nav-link" href="/users-list">Users</a>
             </li>
             <?php if (!Application::isGuest()): ?>
                 <div class="dropdown-divider d-lg-none"></div>
-                <li class="nav-item d-lg-none">
+                <li class="nav-item <?php echo ($this->title === 'Profile') ?  ' active' : ''; ?> d-lg-none">
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
                 <li class="nav-item d-lg-none">

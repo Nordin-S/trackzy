@@ -10,16 +10,91 @@ namespace app\core;
 
 abstract class UserModel extends DbModel
 {
-    abstract public function getId(): int;
-    abstract public function getUsername(): string;
-    abstract public function getEmail(): string;
-    abstract public function getPassword(): string;
-    abstract public function getAvatar(): string;
-    abstract public function getBio(): string;
-    abstract public function getRole(): int;
-    abstract public function getStatus(): int;
-    abstract public function getVerified(): int;
-    abstract public function getRecoveryToken(): string;
-    abstract public function getTokenExpiration(): string;
-    abstract public function getCreatedDate(): string;
+    public int $id = 1;
+    public string $email = '';
+    public string $password = '';
+    public string $username = '';
+    public int $status = 0;
+    public int $role = 3;
+    public string $avatar = '';
+    public string $bio = '';
+    public int $verified = 0;
+    public string $recovery_token = '';
+    public string $token_expiration = '';
+    public string $created_at = '';
+
+    public function tableName(): string
+    {
+        return 'users';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'id';
+    }
+
+    
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getAvatar(): string
+    {
+        return $this->avatar;
+    }
+
+    public function getBio(): string
+    {
+        return $this->bio;
+    }
+
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    public function getVerified(): int
+    {
+        return $this->verified;
+    }
+
+    public function getRecoveryToken(): string
+    {
+        return $this->recovery_token;
+    }
+
+    public function getTokenExpiration(): string
+    {
+        return $this->token_expiration;
+    }
+
+    public function getCreatedDate(): string
+    {
+        return $this->created_at;
+    }
+    public function setRole($value): void
+    {
+        $this->role = $value;
+    }
 }

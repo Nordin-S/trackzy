@@ -12,8 +12,22 @@ use app\core\Application;
 
 class Login extends User
 {
-    public string $email;
-    public string $password;
+//    public string $email = '';
+//    public string $password = '';
+
+    public function login()
+    {
+        $user = (new User)->findUser(['email' => $this->email]);
+        if (!$user) {
+            $this->addError('email', 'User with given email does not exist');
+            return false;
+        }
+        if (!password_verify($this->password, $user->password)) {
+            $this->addError('password', 'Incorrect password');
+            return false;
+        }
+        return Application::$app->login($user);
+    }
 
     public function rules(): array
     {
@@ -29,18 +43,6 @@ class Login extends User
             'email' => 'Your Email',
             'password' => 'Password',
         ];
-    }
-    public function login(){
-        $user = (new User)->findUser(['email' => $this->email]);
-        if(!$user){
-            $this->addError('email', 'User with given email does not exist');
-            return false;
-        }
-        if(!password_verify($this->password, $user->password)){
-            $this->addError('password', 'Incorrect password');
-            return false;
-        }
-        return Application::$app->login($user);
     }
 
 }

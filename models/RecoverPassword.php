@@ -9,6 +9,7 @@
 namespace app\models;
 
 use app\core\DbModel;
+use DateTime;
 
 class RecoverPassword extends DbModel
 {
@@ -16,16 +17,17 @@ class RecoverPassword extends DbModel
     public string $recovery_token = '';
     public string $token_expiration = '';
     public string $username = '';
-    public int $role;
 
-    public function createTokenInDb(): bool
+    public function updateAttributesWhere($where): bool
     {
         $this->recovery_token = md5($this->email) . rand(10, 9999);
-        $expFormat = mktime(
-            1, date("i"), date("s"), date("m"), date("d"), date("Y")
-        );
-        $this->token_expiration = date("Y-m-d H:i:s", $expFormat);
-        return parent::createTokenInDb();
+        $this->token_expiration = date("Y-m-d H:i:s", strtotime("+3 hours"));
+        return parent::updateAttributesWhere($where);
+    }
+
+    public function setUsername(string $username): void
+    {
+        $this->username = $username;
     }
 
     public function tableName(): string

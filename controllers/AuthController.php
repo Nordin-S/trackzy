@@ -30,9 +30,9 @@ class AuthController extends Controller
     public function login(Request $request, Response $response)
     {
         $loginForm = new Login();
-        if($request->isPost()){
+        if ($request->isPost()) {
             $loginForm->loadData($request->getBody());
-            if($loginForm->validate() && $loginForm->login()){
+            if ($loginForm->validate() && $loginForm->login()) {
                 Application::$app->response->redirect('/');
                 exit;
             }
@@ -70,27 +70,31 @@ class AuthController extends Controller
 
     public function logout(request $request, Response $response)
     {
-       Application::$app->logout();
-       $response->redirect('/');
-       exit;
+        Application::$app->logout();
+        $response->redirect('/');
+        exit;
     }
 
     public function usersList()
     {
         return $this->render('users-list', ['title' => 'Registered users list']);
     }
+
     public function profile()
     {
         return $this->render('profile', ['title' => 'Profile']);
     }
+
     public function viewIssue()
     {
         return $this->render('view-issue', ['title' => 'View Issue']);
     }
+
     public function newIssue()
     {
         return $this->render('new-issue', ['title' => 'Create Issue']);
     }
+
     public function issues()
     {
         return $this->render('issues', ['title' => 'View Issues']);
@@ -103,13 +107,14 @@ class AuthController extends Controller
         if ($request->isPost()) {
             $recoverPassword->loadData($request->getBody());
             $foundUser = $recoverPassword->findUser(['email' => $recoverPassword->email]);
+
             if (!$foundUser) {
                 $recoverPassword->addError('email', 'User with given email does not exist');
-                Application::$app->response->redirect('/recover-password');
-                exit;
             }
-            if ($recoverPassword->validate() && $recoverPassword->createTokenInDb()) {
-                $resetHref = Application::$app->config['domain'] . "/reset-password.php?key=" . $recoverPassword->email . "&token=" . $recoverPassword->recovery_token;
+
+            if ($recoverPassword->validate() && $foundUser && $recoverPassword->updateAttributesWhere('email')) {
+                    $recoverPassword->setUsername($foundUser->username) ?? '';
+                $resetHref = Application::$app->config['domain'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
                 $domainHref = "http://" . Application::$app->config['domain'];
                 try {
                     $this->mail = new PHPMailer();
@@ -178,7 +183,7 @@ class AuthController extends Controller
                                 <tr>
                                     <td style="padding:0 35px; text-align:left;">
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            Hello ' . $recoverPassword->getUsername() . ', we heard that you lost password. sorry about that!
+                                            Hello ' . $recoverPassword->username . ', we heard that you lost your password. Sorry about that!
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                             You can use the follwing button to reset your password:
@@ -195,7 +200,7 @@ class AuthController extends Controller
                                 <tr>
                                     <td style="padding:0 35px; text-align:left;">
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin-top:20px;">
-                                            If you don’t use this link within 3 hours, it will expire. To get a new password reset link, visit: ' . $domainHref . '/password_reset
+                                            This reset link will expire soon. To get a new password reset link, visit: ' . $domainHref . '/recover-password
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin-top:10px;">
                                             Thanks. <br>
@@ -234,7 +239,10 @@ class AuthController extends Controller
                 exit;
             }
         }
-        Application::$app->response->redirect('/recover-password');
+//        Application::$app->response->redirect('/recover-password');
+        $this->setLayout('auth');
+        return $this->render('recover-password', ['model' => $recoverPassword,
+            'title' => 'Password recovery',]);
         exit;
     }
 

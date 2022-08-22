@@ -37,6 +37,13 @@ body {
     font-family: 'Varela Round', sans-serif;
     color: var(--text-white);
 }
+.container {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
 nav {
     z-index: 9999;
 }
@@ -52,7 +59,12 @@ nav {
     filter: opacity(40%);
     background-image: radial-gradient(circle at top, var(--bg-green) 0%, var(--bg-dark-blue) 90%);
 }
-
+hr {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border: 0;
+  border-top: 1px solid var(--details-stroke);
+}
 #bs-override .bg-light {
     background-color: var(--text-white) !important;
 }
@@ -61,19 +73,62 @@ nav {
     background: var(--bg-grey-blue) !important;
 }
 
-#bs-override .card
-{
+#bs-override .card {
     border: 1px solid var(--details-stroke);
     border-radius: 10px;
     background-color: var(--bg-dark-blue-06);
     box-shadow: 0px 20px 40px 5px var(--bg-dark-blue);
 }
+
+#bs-override .card-table {
+    margin-top: 10px;
+    border: 1px solid var(--details-stroke);
+    border-radius: 10px;
+    background-color: var(--bg-grey-blue);
+}
+
+.card-table thead {
+    background-color: var(--bg-dark-blue);
+    border: 1px solid var(--details-stroke);
+    height: 50px;
+}
+#bs-override .table-dark {
+    color: var(--text-white) !important;
+    background: var(--bg-grey-blue);
+    border-radius: 10px;
+}
+#bs-override table thead th {
+    vertical-align: middle;
+}
+.table td, .table th {
+    padding: 0 .45rem;
+    vertical-align: middle;
+    border-top: 1px solid var(--details-stroke-brigth);
+}
+
+table th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+table th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+#bs-override select,
+#bs-override input {
+    background-color: var(--bg-dark-blue);
+    color: var(--text-white);
+    border: 1px solid var(--details-stroke);
+    height: 40px;
+}
+
 #bs-override .card input {
     border: 1px solid var(--details-stroke);
     border-radius: 10px;
     background: var(--bg-dark-blue);
     color: var(--text-gray-light);
 }
+
 .dropdown-menu {
     min-width: 15rem;
     margin: .125rem 0 0;
@@ -87,17 +142,21 @@ nav {
     border-radius: .45rem;
     box-shadow: 30px 10px 30px 5px var(--bg-dark-blue);
 }
+
 .dropdown-menu .dropdown-item {
     padding: .25rem 1.0rem;
     color: var(--text-white);
     text-align: left;
 }
+
 .dropdown-menu .dropdown-item:hover {
     background-color: var(--btn-main-normal);
 }
+
 .dropdown-menu .dropdown-item:active {
     background-color: var(--btn-main-active);
 }
-.dropdown-menu .dropdown-divider{
+
+.dropdown-menu .dropdown-divider {
     border-top: 1px solid var(--details-stroke)
 }

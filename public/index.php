@@ -31,8 +31,9 @@ try {
         $app->db->applyMigrations();
     }
 } catch (PDOException $e) {
+    $title = 'fes';
     ob_start();
-    include_once('../views/layouts/auth.php');
+    include_once('../views/layouts/setup-layout.php');
     $layoutContent = ob_get_clean();
 
     ob_start();
@@ -40,6 +41,7 @@ try {
     $viewContent = ob_get_clean();
 
     echo str_replace('{{content}}', $viewContent, $layoutContent);
+
     exit;
 }
 $requestPath = Application::$app->request->getPath();
@@ -48,7 +50,7 @@ if ($requestPath !== '/setup' && !Application::$app->db->getAllUsersEmail()) {
     exit;
 }
 
-if ($requestPath !== '/login' && $requestPath !== '/setup' && $requestPath !== '/recover-password' && Application::isGuest()) {
+if ($requestPath !== '/login' && $requestPath !== '/setup' && $requestPath !== '/recover-password' && $requestPath !== '/reset-password' && Application::isGuest()) {
     header("Location: /login");
     exit;
 }
@@ -56,6 +58,7 @@ if ($requestPath !== '/login' && $requestPath !== '/setup' && $requestPath !== '
 $app->router->get('/setup', [SiteController::class, 'siteSetup']);
 $app->router->get('/login', [SiteController::class, 'login']);
 $app->router->get('/recover-password', [SiteController::class, 'recoverPassword']);
+$app->router->get('/reset-password', [SiteController::class, 'resetPassword']);
 
 
 $app->router->get('/', [AuthController::class, 'issues']);
@@ -67,6 +70,8 @@ $app->router->get('/register', [AuthController::class, 'register']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
 $app->router->post('/setup', [SiteController::class, 'siteSetup']);
+$app->router->post('/reset-password', [SiteController::class, 'resetPassword']);
+
 $app->router->post('/login', [AuthController::class, 'login']);
 $app->router->post('/recover-password', [AuthController::class, 'recoverPassword']);
 $app->router->post('/profile', [AuthController::class, 'profile']);

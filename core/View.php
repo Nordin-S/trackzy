@@ -11,6 +11,8 @@ namespace app\core;
 class View
 {
     public string $title = '';
+    public string $email = '';
+    public string $recovery_token = '';
 
     protected function layoutContent($params = [])
     {

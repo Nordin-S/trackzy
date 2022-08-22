@@ -14,6 +14,10 @@ class Field
     public Model $model;
     public string $attr;
     public string $type;
+    public string $fieldValue = '';
+    public string $labelStyle = '';
+    public string $fieldStyle = '';
+    public string $feedbackStyle = '';
 
     /**
      * @param Model $model
@@ -30,24 +34,27 @@ class Field
     {
         return sprintf('
             <div class="mb-3">
-                <label for="%s" class="form-label">%s</label>
-                <input class="form-control%s" type="%s" id="%s" name="%s" value="%s">
-                <div class="invalid-feedback">
+                <label for="%s" class="form-label %s">%s</label>
+                <input class="form-control%s %s" type="%s" id="%s" name="%s" value="%s">
+                <div class="invalid-feedback %s">
                     %s
                 </div>
             </div>
         ',
             $this->attr, // for
+            $this->labelStyle, // label style
             $this->model->getLabel($this->attr), // label value
             $this->model->hasError($this->attr) ? ' is-invalid' : '', // class
+            $this->fieldStyle, // style
             $this->type, // type
             $this->attr, // id
             $this->attr, // name
             $this->attr === 'password' || $this->attr === 'passwordConfirmation' ? '' : $this->model->{$this->attr}, // value
+            $this->feedbackStyle, // style
             $this->model->getFirstErrorMessage($this->attr) // feedback
         );
     }
-    public function setFieldType($fieldType)
+    public function setExtras($fieldType = '', $labelStyle = '', $fieldStyle = '', $feedbackStyle = '')
     {
         switch ($fieldType) {
             case self::TYPE_PASSWORD:
@@ -62,6 +69,10 @@ class Field
             default:
                 $this->type = self::TYPE_TEXT;
         }
+//        $this->fieldValue = $fieldValue;
+        $this->labelStyle = $labelStyle;
+        $this->fieldStyle = $fieldStyle;
+        $this->feedbackStyle = $feedbackStyle;
         return $this;
     }
 }
