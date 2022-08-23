@@ -31,7 +31,7 @@ try {
         $app->db->applyMigrations();
     }
 } catch (PDOException $e) {
-    $title = 'fes';
+    $title = 'Database setup';
     ob_start();
     include_once('../views/layouts/setup-layout.php');
     $layoutContent = ob_get_clean();
