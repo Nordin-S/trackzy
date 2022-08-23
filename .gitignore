@@ -1,3 +1,4 @@
 vendor
 .idea
 .env
+DigiCertGlobalRootCA.crt.pem
