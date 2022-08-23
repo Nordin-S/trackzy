@@ -21,8 +21,8 @@ class Database
         $password = $config['password'] ?? '';
         $this->pdo = new \PDO($host, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $this->pdo->setAttribute(\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT, '../DigiCertGlobalRootCA.crt.pem');
-        $this->pdo->setAttribute(\PDO::MYSQL_ATTR_SSL_CA, false);
+//        $this->pdo->setAttribute(\PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT, '../DigiCertGlobalRootCA.crt.pem');
+//        $this->pdo->setAttribute(\PDO::MYSQL_ATTR_SSL_CA, false);
 //        $this->applyMigrations();
     }
 
