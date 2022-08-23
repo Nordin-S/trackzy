@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'trackzy'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E8DB63F1348646918CCEA9E39A159F13 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6180FD5263154946AAA9D51FB51CFA98 }}
           package: .
