@@ -10,6 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
+
 $config = [
     'domain' => 'nordin.azurewebsites.net',
     'db' => [
@@ -31,6 +32,11 @@ try {
         $app->db->applyMigrations();
     }
 } catch (PDOException $e) {
+
+    echo '<pre>';
+    var_dump($e->getMessage());
+    echo '</pre>';
+    exit;
     $title = 'Database setup';
     ob_start();
     include_once('../views/layouts/setup-layout.php');
