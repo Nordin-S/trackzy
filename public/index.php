@@ -11,7 +11,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 $config = [
-    'domain' => 'localhost:8080',
+    'domain' => 'nordin.azurewebsites.net',
     'db' => [
         'host' => $_ENV['DB_HOST'],
         'user' => $_ENV['DB_USER'],
