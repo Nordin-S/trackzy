@@ -72,16 +72,12 @@ abstract class DbModel extends Model
         }
 
         $statement->execute();
-//        echo '<pre>';
-//        var_dump($statement->fetchObject(static::class) ?? false);
-//        echo '</pre>';
-//        exit;
         return $statement->fetchObject(static::class) ?? false;
     }
 
-    public static function getAllUsers()
+    public static function getAllRows($classType)
     {
-        $tableName = (new GetUsers)->tableName();
+        $tableName = $classType->tableName();
         $statement = self::prepare("SELECT * FROM $tableName");
 
         $statement->execute();

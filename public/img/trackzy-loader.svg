@@ -1,0 +1,33 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+	<title>trackzy-logo2-svg</title>
+	<style>
+		.s0 { fill-opacity: .7;fill: #0074e0 } 
+		.s1 { fill: #0074e0 } 
+		.s2 { fill-opacity: .3;fill: #0074e0 } 
+		.s3 { fill-opacity: .9;fill: #0074e0 } 
+		.s4 { fill-opacity: .5;fill: #0074e0 } 
+	</style>
+	<g id="Mapp 1">
+		<path id="Layer" class="s0" d="m155 56.6l-40.8 13.6-13.5-41 40.8-13.5z"/>
+		<path id="Layer copy 6" class="s1" d="m148 53.1l-30.3 10-10-30.3 30.3-10.1z"/>
+		<path id="Layer copy" class="s2" d="m113.9 204.1l23.2-5.3 5.2 23.3-23.2 5.2z"/>
+		<path id="Layer copy 2" class="s1" d="m124.5 210.8l5.9-1.4 1.4 6-6 1.3z"/>
+	</g>
+	<g id="Mapp 1 copy">
+		<path id="Layer" class="s3" d="m187.6 155.3l-2-52.9 52.9-1.9 2.1 52.8z"/>
+		<path id="Layer copy 8" class="s1" d="m189.9 153.7l-2.5-49.3 49.4-2.4 2.5 49.3z"/>
+		<path id="Layer copy" class="s4" d="m43 101l27.2 27.2-27.4 27.1-27.1-27.2z"/>
+		<path id="Layer copy 4" class="s1" d="m43 114.8l13.2 13.4-13.3 13.2-13.3-13.3z"/>
+	</g>
+	<g id="Mapp 1 copy 2">
+		<path id="Layer" class="s3" d="m207.8 97.2l-49.3-9.7 9.8-49.3 49.3 9.7z"/>
+		<path id="Layer copy 7" class="s3" d="m204.7 92.6l-41.5-8.1 8.2-41.6 41.6 8.1z"/>
+		<path id="Layer copy" class="s4" d="m47.4 176.5l32.3-8.8 8.7 32.3-32.2 8.8z"/>
+		<path id="Layer copy 3" class="s1" d="m60.8 184.1l11.3-3 3 11.3-11.3 3z"/>
+	</g>
+	<g id="Mapp 1 copy 3">
+		<path id="Layer" class="s1" d="m152.5 208.3l15.4-56.1 56.1 15.6-15.4 56.1z"/>
+		<path id="Layer copy" class="s0" d="m87.6 48.2l-0.1 39.6-39.6-0.1 0.1-39.7z"/>
+		<path id="Layer copy 5" class="s1" d="m79.9 55.9l-0.1 24.2-24.2-0.1 0.1-24.2z"/>
+	</g>
+</svg>

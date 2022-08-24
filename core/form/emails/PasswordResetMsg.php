@@ -45,8 +45,8 @@ class PasswordResetMsg
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                          <a href="http://' . $domainHref . '" title="logo" target="_blank">
-                            <img width="60" src="http://' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
+                          <a href="https://' . $domainHref . '" title="logo" target="_blank">
+                            <img width="60" src="https://' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
                           </a>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@ class PasswordResetMsg
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px; text-align:center;">
-                                        <a href="http://' . $resetHref . '"
+                                        <a href="https://' . $resetHref . '"
                                             style="background:#007bff;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset
                                             Password</a>
                                     </td>

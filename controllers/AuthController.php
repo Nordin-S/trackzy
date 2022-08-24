@@ -9,6 +9,7 @@ use app\core\form\emails\PasswordResetMsg;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\models\GetInvitations;
 use app\models\GetUsers;
 use app\models\Invite;
 use app\models\Login;
@@ -77,16 +78,15 @@ class AuthController extends Controller
 
     public function usersList()
     {
-//        return $this->render('users-list', ['title' => 'Registered users list']);
+        $members = (new GetUsers)->execute(new GetUsers);
+        $invitatioons = (new GetInvitations)->execute(new GetInvitations);
+        $partisipants = [
+            'members' => $members,
+            'invitations' => $invitatioons
+        ];
 
-        $getUsers = new GetUsers;
-        $members = $getUsers->execute();
-//        echo '<pre>';
-//        var_dump($members);
-//        echo '</pre>';
-//        exit;
         return $this->render('users-list',
-            ['model' => $members, 'title' => 'Registered users list',]);
+            ['model' => $partisipants, 'title' => 'Manage users list',]);
         exit;
     }
 
@@ -121,7 +121,7 @@ class AuthController extends Controller
         }
         if ($invite->validate() && !$isMember && $invite->execute()) {
             $registerHref = Application::$app->config['domain'] . "/register?email=" . $invite->email . "&invite_token=" . $invite->invitecode;
-            $domainHref = "http://" . Application::$app->config['domain'];
+            $domainHref = "https://" . Application::$app->config['domain'];
             $inviteMsg = new InviteMsg($registerHref, $domainHref, $invite->email);
             try {
                 Application::$app->mail->addAddress($invite->email);
@@ -157,7 +157,7 @@ class AuthController extends Controller
             if ($recoverPassword->validate() && $foundUser && $recoverPassword->updateAttributesWhere('email')) {
                     $recoverPassword->setUsername($foundUser->username) ?? '';
                 $resetHref = Application::$app->config['domain'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
-                $domainHref = "http://" . Application::$app->config['domain'];
+                $domainHref = "https://" . Application::$app->config['domain'];
                 $passwordResetMsg = new PasswordResetMsg($resetHref, $domainHref, $recoverPassword->username);
                 try {
                     Application::$app->mail->addAddress($recoverPassword->email);

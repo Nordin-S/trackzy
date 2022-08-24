@@ -1,0 +1,15 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+	<title>trackzy-logo-svg</title>
+	<style>
+		.s0 { fill: #0074e0 } 
+	</style>
+	<path id="Layer" class="s0" d="m205 196.6h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m205 135.2h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m205 73.8h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m143.6 196.6h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m143.6 135.2h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m153.8 44.4l-32.7 39.1-39.1-32.8 32.7-39.1z"/>
+	<path id="Layer" class="s0" d="m82.2 196.6h51v51h-51z"/>
+	<path id="Layer" class="s0" d="m85.7 162.5l-42.9-27.7 27.6-42.9 42.9 27.7z"/>
+	<path id="Layer" class="s0" d="m55.4 58l-50.9 4.5-4.5-50.8 50.8-4.5z"/>
+</svg>

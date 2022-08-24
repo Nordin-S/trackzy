@@ -13,10 +13,6 @@ use app\core\UserModel;
 
 class ResetPassword extends UserModel
 {
-//    public string $email = '';
-//    public string $recovery_token = '';
-//    public string $token_expiration = '';
-//    public string $password = '';
     public string $passwordConfirmation = '';
 
     public function updateAttributesWhere($where): bool

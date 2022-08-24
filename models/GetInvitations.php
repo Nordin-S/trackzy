@@ -2,9 +2,9 @@
 
 namespace app\models;
 
-use app\core\UserModel;
+use app\core\DbModel;
 
-class GetUsers extends UserModel
+class GetInvitations extends DbModel
 {
     public function execute($classType)
     {
@@ -19,5 +19,15 @@ class GetUsers extends UserModel
     public function rules(): array
     {
         return [];
+    }
+
+    public function tableName(): string
+    {
+        return 'invitations';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'id';
     }
 }

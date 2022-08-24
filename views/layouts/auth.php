@@ -16,6 +16,7 @@ use app\core\Application;
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Trackzy CSS -->
     <link rel="stylesheet" href="\css\style.css">
+    <link rel="icon" href="\img\trackzy-logo2.svg" sizes="any" type="image/svg+xml">
 
     <!--    Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +42,7 @@ use app\core\Application;
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-5 col-xl-4 text-center">
                 <a href="/">
-                    <img src="/img/trackzy-logo.svg" id="logo-hero" alt="trackzy logo">
+                    <img src="/img/trackzy-logo2.svg" id="logo-hero" alt="trackzy logo">
                 </a>
                 <br>
                 <h2><?php echo $this->title; ?></h2>

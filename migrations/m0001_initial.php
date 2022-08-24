@@ -19,12 +19,12 @@ class m0001_initial
                 email VARCHAR(100) NOT NULL UNIQUE KEY,
                 username VARCHAR(30) NOT NULL,
                 password VARCHAR(250) NOT NULL,
-                bio VARCHAR(512) NOT NULL,
-                role TINYINT NOT NULL,
-                avatar VARCHAR(255) NOT NULL,
+                bio VARCHAR(512) NOT NULL DEFAULT '',
+                role TINYINT NOT NULL DEFAULT 0,
+                avatar VARCHAR(255) NOT NULL DEFAULT '',
                 status TINYINT NOT NULL DEFAULT 0,
-                verified TINYINT NOT NULL,
-                recovery_token VARCHAR(255) NOT NULL,
+                verified TINYINT NOT NULL DEFAULT 0,
+                recovery_token VARCHAR(255) NOT NULL DEFAULT 0,
                 token_expiration TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
@@ -33,8 +33,8 @@ class m0001_initial
         $SQL = "CREATE TABLE invitations (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 email VARCHAR(100) NOT NULL UNIQUE KEY,
-                role TINYINT NOT NULL,
-                invitecode VARCHAR(255) NOT NULL
+                role TINYINT NOT NULL DEFAULT 0,
+                invitecode VARCHAR(255) NOT NULL DEFAULT ''
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         $db->pdo->exec($SQL);
     }

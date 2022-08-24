@@ -17,6 +17,7 @@ use app\core\Application;
 
     <!-- Trackzy CSS -->
     <link rel="stylesheet" href="\css\style.css">
+    <link rel="icon" href="\img\trackzy-logo2.svg" sizes="any" type="image/svg+xml">
 
     <!--    Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +34,7 @@ use app\core\Application;
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">
-        <img src="/img/trackzy-logo.svg" width="30" height="30" alt="">
+        <img src="/img/trackzy-logo2.svg" width="30" height="30" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

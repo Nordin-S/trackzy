@@ -37,6 +37,34 @@ body {
     font-family: 'Varela Round', sans-serif;
     color: var(--text-white);
 }
+#logo-hero {
+    position: relative;
+    left: -22px;
+    width: 128px;
+    margin: 20px;
+}
+#invite-loader{
+    width: 38px;
+    margin: 0 5px 0 0;
+    display:none;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  /* transform: rotate(3deg); */
+   /* transform: rotate(0.3rad);/ */
+   /* transform: rotate(3grad); */
+   /* transform: rotate(.03turn);  */
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
 .container {
     width: 100%;
     padding-right: 0;
@@ -112,6 +140,9 @@ table th:first-child {
 
 table th:last-child {
     border-radius: 0 10px 10px 0;
+}
+tbody tr {
+    display: none;
 }
 
 #bs-override select,
