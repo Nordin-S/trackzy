@@ -5,8 +5,8 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\form\emails\InviteMsg;
+use app\core\form\emails\InviteRevokeMsg;
 use app\core\form\emails\PasswordResetMsg;
-use app\core\InviteModel;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
@@ -29,22 +29,6 @@ class AuthController extends Controller
         ));
     }
 
-    public function login(Request $request, Response $response)
-    {
-        $loginForm = new Login();
-        if ($request->isPost()) {
-            $loginForm->loadData($request->getBody());
-            if ($loginForm->validate() && $loginForm->login()) {
-                Application::$app->response->redirect('/');
-                exit;
-            }
-        }
-        $this->setLayout('auth');
-        return $this->render('login', [
-            'model' => $loginForm,
-            'title' => 'Sign in'
-        ]);
-    }
 
     public function register(Request $request)
     {
@@ -88,6 +72,23 @@ class AuthController extends Controller
         ]);
     }
 
+    public function login(Request $request, Response $response)
+    {
+        $loginForm = new Login();
+        if ($request->isPost()) {
+            $loginForm->loadData($request->getBody());
+            if ($loginForm->validate() && $loginForm->login()) {
+                Application::$app->response->redirect('/');
+                exit;
+            }
+        }
+        $this->setLayout('auth');
+        return $this->render('login', [
+            'model' => $loginForm,
+            'title' => 'Sign in'
+        ]);
+    }
+
     public function logout(request $request, Response $response)
     {
         Application::$app->logout();
@@ -97,37 +98,64 @@ class AuthController extends Controller
 
     public function usersList()
     {
+        // get all members and invitations and send to view
         $members = (new GetUsers)->execute(new GetUsers);
         $invitations = (new GetInvitations)->execute(new GetInvitations);
-        $partisipants = [
+        $participants = [
             'members' => $members,
             'invitations' => $invitations
         ];
 
         return $this->render('users-list',
-            ['model' => $partisipants, 'title' => 'Manage users list',]);
+            ['model' => $participants, 'title' => 'Manage users list',]);
         exit;
     }
 
-    public function profile()
+    public function deleteUser(Request $request)
     {
-        return $this->render('profile', ['title' => 'Profile']);
+        $user = new User();
+        $user->loadData($request->getBody());
+        if ($user->getId() != Application::$app->user->getId()) {
+            if ($user->delete(['id' => $user->id], new User())) {
+                Application::$app->session->setFlash('success', 'User was deleted successfully');
+            } else {
+                Application::$app->session->setFlash('warning', 'Could not delete user');
+            }
+        } else {
+            Application::$app->session->setFlash('danger', 'You are not allowed to delete yourself');
+        }
+        Application::$app->response->redirect('/users-list');
+        exit;
     }
 
-    public function viewIssue()
+    public function revokeInvitation(Request $request)
     {
-        return $this->render('view-issue', ['title' => 'View Issue']);
+        $invitation = new GetInvitations();
+        $invitation->loadData($request->getBody());
+        $isInvited = (new GetInvitations)->findUser(['id' => $invitation->id], new GetInvitations());
+        if ($isInvited && $invitation->delete(['id' => $invitation->id], new GetInvitations())) {
+            Application::$app->session->setFlash('success', 'Invitation was revoked successfully');
+
+            // send revoked email
+            $domainHref = $_ENV['DOMAIN_ADDRESS'];
+            $inviteRevokeMsg = new InviteRevokeMsg($domainHref, $isInvited->email);
+            try {
+                Application::$app->mail->addAddress($isInvited->email);
+                Application::$app->mail->Subject = $inviteRevokeMsg->getSubject();
+                Application::$app->mail->MsgHTML($inviteRevokeMsg->getMessage());
+                Application::$app->mail->AltBody = $inviteRevokeMsg->getAltBody();
+                Application::$app->mail->send();
+                Application::$app->session->setFlash('success', "Successfully revoked invitation for $isInvited->email");
+            } catch (Exception $e) {
+                Application::$app->session->setFlash('email', 'Could not send invitation revoke email.');
+            }
+        } else {
+            Application::$app->session->setFlash('warning', 'Could not revoke invitation');
+        }
+        Application::$app->response->redirect('/users-list');
+        exit;
     }
 
-    public function newIssue()
-    {
-        return $this->render('new-issue', ['title' => 'Create Issue']);
-    }
-
-    public function issues()
-    {
-        return $this->render('issues', ['title' => 'View Issues']);
-    }
 
     public function invite(Request $request)
     {
@@ -136,7 +164,7 @@ class AuthController extends Controller
 
         $isMember = (new User)->findUser(['email' => $invite->email], new User());
         if ($isMember) {
-            Application::$app->session->setFlash('danger', "EMAIL: Entry with this email already a member");
+            Application::$app->session->setFlash('warning', "EMAIL: Entry with this email already a member");
         }
         if ($invite->validate() && !$isMember && $invite->execute()) {
             $registerHref = $_ENV['DOMAIN_ADDRESS'] . "/register?invitecode=" . $invite->invitecode;
@@ -150,7 +178,7 @@ class AuthController extends Controller
                 Application::$app->mail->send();
                 Application::$app->session->setFlash('success', "successfully invited $invite->email");
             } catch (Exception $e) {
-                $invite->addError('email', 'Could not send invitation mail email. Delete invited user and try again');
+                Application::$app->session->setFlash('email', 'Could not send invitation email. Delete invited user and try again');
             }
         }
         foreach ($invite->errors as $errorTag => $error) {
@@ -187,7 +215,7 @@ class AuthController extends Controller
                     Application::$app->session->setFlash('success', 'Password recovery mail was sent successfully.');
                     Application::$app->response->redirect('/login');
                 } catch (Exception $e) {
-                    $recoverPassword->addError('email', 'Could not send the password recovery email');
+                    Application::$app->session->setFlash('email', 'Could not send the password recovery email');
                     Application::$app->response->redirect('/recover-password');
                 }
                 exit;
@@ -199,4 +227,24 @@ class AuthController extends Controller
         exit;
     }
 
+
+    public function profile()
+    {
+        return $this->render('profile', ['title' => 'Profile']);
+    }
+
+    public function viewIssue()
+    {
+        return $this->render('view-issue', ['title' => 'View Issue']);
+    }
+
+    public function newIssue()
+    {
+        return $this->render('new-issue', ['title' => 'Create Issue']);
+    }
+
+    public function issues()
+    {
+        return $this->render('issues', ['title' => 'View Issues']);
+    }
 }

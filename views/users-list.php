@@ -110,7 +110,7 @@ $this->title = $title;
                             <span class="">%s</span>
                         </td>
                         <td class="text-right px-2">
-                            <a href="/delete-user?id=%s" class="btn text-danger btn-lg btn-circle ml-2"><i
+                            <a href="/revoke-invitation?id=%s" class="btn text-danger btn-lg btn-circle ml-2"><i
                                         class="fa-solid fa-circle-minus"></i> </a>
                         </td>
                     </tr>',

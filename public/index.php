@@ -60,6 +60,8 @@ $app->router->get('/new-issue', [AuthController::class, 'newIssue']);
 $app->router->get('/view-issue', [AuthController::class, 'viewIssue']);
 $app->router->get('/profile', [AuthController::class, 'profile']);
 $app->router->get('/users-list', [authController::class, 'usersList']);
+$app->router->get('/delete-user', [authController::class, 'deleteUser']);
+$app->router->get('/revoke-invitation', [authController::class, 'revokeInvitation']);
 $app->router->get('/register', [AuthController::class, 'register']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 

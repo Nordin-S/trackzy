@@ -22,7 +22,6 @@ abstract class UserModel extends DbModel
     public string $recovery_token = '';
     public string $token_expiration = '';
     public string $created_at = '';
-
     public function tableName(): string
     {
         return 'users';
