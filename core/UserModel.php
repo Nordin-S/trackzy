@@ -97,4 +97,8 @@ abstract class UserModel extends DbModel
     {
         $this->role = $value;
     }
+    public function setEmail($value): void
+    {
+        $this->email = $value;
+    }
 }

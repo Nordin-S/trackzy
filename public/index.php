@@ -1,73 +1,61 @@
 <?php
 
-
 use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\core\Application;
 use app\models\User;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+// set project root path
+$_ENV['ROOT_DIR'] = dirname(__DIR__) . '/';
+
+// Start autoloading package
+require_once $_ENV['ROOT_DIR'] . 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-
-$config = [
-    'domain' => 'nordin.azurewebsites.net',
-    'db' => [
-        'host' => $_ENV['DB_HOST'],
-        'user' => $_ENV['DB_USER'],
-        'password' => $_ENV['DB_PASSWORD'],
-    ],
-    'mail' => [
-        'email' => $_ENV['MAIL_EMAIL'],
-        'password' => $_ENV['MAIL_PASSWORD'],
-    ],
-    'userClass' => User::class,
-];
+//additional env variables that needs to be set from here
+$_ENV['userClass'] = User::class;
 
 // if database throws an error for admin to edit env file with db credentials
 try {
-    $app = new Application(dirname(__DIR__), $config);
+    $app = new Application();
     if ($app->db->getAppliedMigrations() == null) {
         $app->db->applyMigrations();
     }
 } catch (PDOException $e) {
-
-    echo '<pre>';
-    var_dump($e->getMessage());
-    echo '</pre>';
-    exit;
+    //could not connect to db, edit .env file
     $title = 'Database setup';
-    ob_start();
-    include_once('../views/layouts/setup-layout.php');
-    $layoutContent = ob_get_clean();
-
-    ob_start();
-    include_once('../views/setup-db.php');
-    $viewContent = ob_get_clean();
-
-    echo str_replace('{{content}}', $viewContent, $layoutContent);
+    include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php');
+    include_once($_ENV['ROOT_DIR'] . 'views/setup-db.php');
+    include_once($_ENV['ROOT_DIR'] . 'views/layouts/footerBase.php');
 
     exit;
 }
+// if there are no users in database, lets create admin
 $requestPath = Application::$app->request->getPath();
-if ($requestPath !== '/setup' && !Application::$app->db->getAllUsersEmail()) {
-    header("Location: /setup");
+if ($requestPath !== '/setup-admin' && !Application::$app->db->getAllUsersEmail()) {
+    header("Location: /setup-admin");
     exit;
 }
 
-if ($requestPath !== '/login' && $requestPath !== '/setup' && $requestPath !== '/recover-password' && $requestPath !== '/reset-password' && Application::isGuest()) {
-    header("Location: /login");
-    exit;
-}
+// login page
+//if ($requestPath !== '/login'
+//    && $requestPath !== '/setup-admin'
+//    && $requestPath !== '/recover-password'
+//    && $requestPath !== '/reset-password'
+//    && Application::isGuest()) {
+//    header("Location: /login");
+//    exit;
+//}
 
-$app->router->get('/setup', [SiteController::class, 'siteSetup']);
+// route to controllers
+$app->router->get('/', [SiteController::class, 'welcome']);
+$app->router->get('/setup-admin', [SiteController::class, 'setupAdmin']);
 $app->router->get('/login', [SiteController::class, 'login']);
 $app->router->get('/recover-password', [SiteController::class, 'recoverPassword']);
 $app->router->get('/reset-password', [SiteController::class, 'resetPassword']);
 
-
-$app->router->get('/', [AuthController::class, 'issues']);
+$app->router->get('/issues', [AuthController::class, 'issues']);
 $app->router->get('/new-issue', [AuthController::class, 'newIssue']);
 $app->router->get('/view-issue', [AuthController::class, 'viewIssue']);
 $app->router->get('/profile', [AuthController::class, 'profile']);
@@ -75,7 +63,7 @@ $app->router->get('/users-list', [authController::class, 'usersList']);
 $app->router->get('/register', [AuthController::class, 'register']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
-$app->router->post('/setup', [SiteController::class, 'siteSetup']);
+$app->router->post('/setup-admin', [SiteController::class, 'setupAdmin']);
 $app->router->post('/reset-password', [SiteController::class, 'resetPassword']);
 
 $app->router->post('/login', [AuthController::class, 'login']);

@@ -15,9 +15,7 @@ date_default_timezone_set('Etc/UTC');
  */
 class Application
 {
-    public static string $ROOT_DIR;
     public static Application $app;
-    public array $config = [];
     public ?string $userClass;
     public string $layout = 'main';
     public Database $db;
@@ -29,21 +27,18 @@ class Application
     public ?userModel $user;
     public View $view;
     public PHPMailer $mail;
-    public string $email = 'trackzy.tracks@gmail.com';
 
-    public function __construct($rootPath, array $config)
+    public function __construct()
     {
-        self::$ROOT_DIR = $rootPath;
-        $this->config = $config;
-        $this->userClass = $config['userClass'] ?? null;
-        self::$app = $this;
-        $this->db = new Database($config['db']);
+        $this->userClass = $_ENV['userClass'] ?? null;
+        $this->db = new Database();
         $this->session = new Session();
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
         $this->view = new View();
         $this->user = null;
+        self::$app = $this;
 
 
         $this->mail = new PHPMailer();
@@ -54,10 +49,10 @@ class Application
         $this->mail->SMTPAuth = true;
         $this->mail->SMTPSecure = 'tls';
         $this->mail->Port = 587;
-        $this->mail->Username = Application::$app->config['mail']['email'];
-        $this->mail->Password = Application::$app->config['mail']['password'];
-        $this->mail->setFrom(Application::$app->config['mail']['email'], 'Trackzy Tracks');
-        $this->mail->isHtml(true);
+        $this->mail->Username = $_ENV['MAIL_EMAIL'];
+        $this->mail->Password = $_ENV['MAIL_PASSWORD'];
+        $this->mail->setFrom($_ENV['MAIL_EMAIL'], $_ENV['MAIL_SENDER']);
+        $this->mail->isHtml();
 
         $primaryValue = Application::$app->session->get('user');
         $hasAppliedMigrations = $this->db->getAppliedMigrations() != null;
@@ -79,7 +74,8 @@ class Application
         } catch (\Exception $e) {
             $this->response->setStatusCode($e->getCode());
             echo $this->view->renderView('response-error', [
-                'exception' => $e
+                'exception' => $e,
+                'title' => 'Error: ' . $e->getMessage()
             ]);
         }
     }

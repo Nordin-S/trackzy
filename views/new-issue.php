@@ -3,3 +3,7 @@
 /** @var $title \app\core\View */
 $this->title = $title;
 ?>
+<div class="container mt-5 pt-5 text-center">
+    <h1>"<?php echo $title ?>" unfortunatly not implemented yet.</h1>
+    <h2>Refer to landing page for instructions</h2>
+</div>

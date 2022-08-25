@@ -4,7 +4,7 @@
 $this->title = $title;
 ?>
 
-<div class="col-sm-12 col-md-10 m-auto p-0 pt-4">
+<div class="col-md-12 col-lg-8 m-auto px-2 pt-4">
     <h2>Invite new user</h2>
     <form action="/invite" method="post">
         <div class="d-flex flex-row px-2">
@@ -23,7 +23,7 @@ $this->title = $title;
     <h2>Members</h2>
     <div class="card-table">
         <div class="table-responsive">
-            <table class="table no-wrap mb-0 table-dark table-hover">
+            <table class="table table-dark table-hover">
                 <caption class="d-none">Users list</caption>
                 <thead class="">
                 <tr class="">
@@ -31,7 +31,7 @@ $this->title = $title;
                     <th scope="col" class="text-muted d-none d-md-table-cell">Email</th>
                     <th scope="col" class="text-muted">Role</th>
                     <th scope="col" class="text-muted">Created</th>
-                    <th scope="col" class="text-muted">Delete</th>
+                    <th scope="col" class="text-muted text-right px-2">Delete</th>
                 </tr>
                 </thead>
                 <tbody class="">
@@ -46,20 +46,20 @@ $this->title = $title;
                     }
 
                     printf(' 
-                    <tr class="row-item">
-                        <td class="w-25 d-md-table-cell">
+                    <tr class="">
+                        <td class="">
                             <span class=""><a href="/profile?id=%s">%s</a></span>
                         </td>
-                        <td class="d-none d-md-table-cell w-25">
+                        <td class="d-none d-md-table-cell">
                             <span class="">%s</span>
                         </td>
-                        <td class="d-table-cell w-25">
+                        <td class="">
                             <span class="">%s</span>
                         </td>
-                        <td class="w-auto">
+                        <td class="">
                             <span class="">%s</span>
                         </td>
-                        <td class="" style="width: 20px">
+                        <td class="text-right px-2">
                             <a href="/delete-user?id=%s" class="btn text-danger btn-lg btn-circle ml-2"><i
                                         class="fa-solid fa-circle-minus"></i> </a>
                         </td>
@@ -87,7 +87,7 @@ $this->title = $title;
                 <tr class="">
                     <th scope="col" class="text-muted d-md-table-cell">Email</th>
                     <th scope="col" class="text-muted">Role</th>
-                    <th scope="col" class="text-muted">Revoke</th>
+                    <th scope="col" class="text-muted text-right px-2">Revoke</th>
                 </tr>
                 </thead>
                 <tbody class="">
@@ -109,7 +109,7 @@ $this->title = $title;
                         <td class="d-table-cell w-auto">
                             <span class="">%s</span>
                         </td>
-                        <td class="" style="width: 20px">
+                        <td class="text-right px-2">
                             <a href="/delete-user?id=%s" class="btn text-danger btn-lg btn-circle ml-2"><i
                                         class="fa-solid fa-circle-minus"></i> </a>
                         </td>

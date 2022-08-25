@@ -14,11 +14,11 @@ class Database
 {
     public \PDO $pdo;
 
-    public function __construct(array $config)
+    public function __construct()
     {
-        $host = $config['host'] ?? '';
-        $user = $config['user'] ?? '';
-        $password = $config['password'] ?? '';
+        $host = $_ENV['DB_HOST'];
+        $user = $_ENV['DB_USER'];
+        $password = $_ENV['DB_PASSWORD'];
         $this->pdo = new \PDO($host, $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
@@ -28,13 +28,13 @@ class Database
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedMigrations();
 
-        $files = scandir(Application::$ROOT_DIR . '/migrations');
+        $files = scandir($_ENV['ROOT_DIR'] . 'migrations');
         $migrationsToApply = array_diff($files, $appliedMigrations);
         foreach ($migrationsToApply as $migration) {
             if ($migration === '.' || $migration === '..') {
                 continue;
             }
-            require_once Application::$ROOT_DIR . '/migrations/' . $migration;
+            require_once $_ENV['ROOT_DIR'] . 'migrations/' . $migration;
             $className = pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
 

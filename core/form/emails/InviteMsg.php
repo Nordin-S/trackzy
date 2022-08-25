@@ -45,8 +45,8 @@ class InviteMsg
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                          <a href="https://' . $domainHref . '" title="logo" target="_blank">
-                            <img width="60" src="https://' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
+                          <a href="' . $domainHref . '" title="logo" target="_blank">
+                            <img width="60" src="' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
                           </a>
                         </td>
                     </tr>
@@ -73,13 +73,13 @@ class InviteMsg
     Hello ' . $email . ', you have been invited to join Trackzy. How cool is that!
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-    You can use the follwing button to complete your registration:
+    You can use the following button to complete your registration:
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px; text-align:center;">
-                                        <a href="https://' . $registerHref . '"
+                                        <a href="' . $registerHref . '"
                                             style="background:#007bff;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">
                                             Register
                                             </a>

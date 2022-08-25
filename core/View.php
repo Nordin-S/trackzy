@@ -24,7 +24,7 @@ class View
         foreach ($params as $key => $value) {
             $$key = $value;
         }
-        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
+        include_once $_ENV['ROOT_DIR'] . "views/layouts/$layout.php";
         return ob_get_clean();
     }
     protected function renderViewOnly($view, $params = [])
@@ -33,7 +33,7 @@ class View
         foreach ($params as $key => $value) {
             $$key = $value;
         }
-        include_once Application::$ROOT_DIR . "/views/$view.php";
+        include_once $_ENV['ROOT_DIR'] . "views/$view.php";
         return ob_get_clean();
     }
     public function renderView($view, $params = [])

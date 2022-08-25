@@ -6,6 +6,9 @@ use app\core\DbModel;
 
 class GetInvitations extends DbModel
 {
+    public int $id;
+    public string $email;
+    public string $role;
     public function execute($classType)
     {
         return parent::getAllRows($classType);
@@ -13,7 +16,7 @@ class GetInvitations extends DbModel
 
     public function attributes(): array
     {
-        return [];
+        return ['id', 'email', 'role'];
     }
 
     public function rules(): array
@@ -29,5 +32,18 @@ class GetInvitations extends DbModel
     public static function primaryKey(): string
     {
         return 'id';
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+    public function getRole()
+    {
+        return $this->role;
+    }
+    public function getEmail()
+    {
+        return $this->email;
     }
 }

@@ -18,6 +18,7 @@ class User extends UserModel
     public int $status = self::STATUS_INACTIVE;
     public int $role = self::ROLE_GUEST;
     public string $passwordConfirmation = '';
+    public string $invitecode = '';
 
     public function insertNew(): bool
     {

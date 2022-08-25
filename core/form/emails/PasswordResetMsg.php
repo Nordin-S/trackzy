@@ -45,8 +45,8 @@ class PasswordResetMsg
                     </tr>
                     <tr>
                         <td style="text-align:center;">
-                          <a href="https://' . $domainHref . '" title="logo" target="_blank">
-                            <img width="60" src="https://' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
+                          <a href="' . $domainHref . '" title="logo" target="_blank">
+                            <img width="60" src="' . $domainHref . '/img/trackzy-logo.png" title="logo" alt="logo">
                           </a>
                         </td>
                     </tr>
@@ -73,13 +73,13 @@ class PasswordResetMsg
     Hello ' . $username . ', we heard that you lost your password. Sorry about that!
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-    You can use the follwing button to reset your password:
+    You can use the following button to reset your password:
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px; text-align:center;">
-                                        <a href="https://' . $resetHref . '"
+                                        <a href="' . $resetHref . '"
                                             style="background:#007bff;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Reset
                                             Password</a>
                                     </td>
@@ -87,7 +87,7 @@ class PasswordResetMsg
                                 <tr>
                                     <td style="padding:0 35px; text-align:left;">
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin-top:20px;">
-    This reset link will expire soon. To get a new password reset link, visit: ' . $domainHref . '/recover-password
+    This reset link will expire soon. To get a new password reset link, visit: <a href="' . $_ENV['DOMAIN_ADDRESS'] . '/recover-password">Trackzy</a>
 </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin-top:10px;">
     Thanks. <br>

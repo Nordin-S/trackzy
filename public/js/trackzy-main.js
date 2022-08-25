@@ -1,8 +1,9 @@
 $(document).ready(function () {
     // flash card fade out
-    jQuery("#flash-alert").delay(2500).fadeOut("slow");
+    jQuery("#flash-alert").delay(3500).fadeOut("slow");
 
-    $("#invite").on("click", function(){
+    // loading for invite form
+    $("#invite").on("click", function () {
         $('#invite-loader').css('display', 'block');
     });
 
@@ -12,8 +13,30 @@ $(document).ready(function () {
         $("#invite-loader").animate(angle);
     }, 50);
 
-    // list rows fading in
+    // list rows fading in for users list
     $("tbody tr").each(function (i) {
-        $(this).delay(0 * i).fadeIn(500);
+        $(this).delay(80 * i).fadeIn(500);
     });
+    // smooth scroll for anchors
+    $(document).on('click', 'a[href^="#"]', function (event) {
+        event.preventDefault();
+
+        $('html, body').animate({
+            scrollTop: $($.attr(this, 'href')).offset().top
+        }, 500);
+    });
+
+    // bouncing anchor arrow
+    function bounce() {
+        $('.smooth-anchor i').animate({'top': 20}, {
+            duration: 800,
+            complete: function () {
+                $('.smooth-anchor i').animate({top: 0}, {
+                    duration: 500,
+                    complete: bounce
+                });
+            }
+        });
+    }
+    bounce();
 });

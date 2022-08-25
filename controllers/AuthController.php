@@ -6,6 +6,7 @@ use app\core\Application;
 use app\core\Controller;
 use app\core\form\emails\InviteMsg;
 use app\core\form\emails\PasswordResetMsg;
+use app\core\InviteModel;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
@@ -47,25 +48,43 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $user = new User();
-        if ($request->isPost()) {
-            $user->loadData($request->getBody());
+        $user = new Login();
+        $user->loadData($request->getBody());
+        $invitation = new GetInvitations;
+        //set role and email from invitation link
+        if (isset($user->invitecode) && $invitation = $invitation->findUser(['invitecode' => $user->invitecode], new GetInvitations())) {
+            $user->setRole($invitation->getRole());
+            $user->setEmail($invitation->getEmail());
+            if ($request->isPost()) {
+                if ($user->validate() && $user->insertNew()) {
+                    // delete invitation from db
+                    $invitation->delete(['invitecode' => $invitation->invitecode], new GetInvitations());
 
-            if ($user->validate() && $user->insertNew()) {
-                Application::$app->session->setFlash('success', 'Thanks for registering');
-                Application::$app->response->redirect('/');
-                exit;
+                    // login newly created member and redirect to home
+                    $user = $user->findUser(['email' => $user->email], new User());
+                    Application::$app->login($user);
+                    Application::$app->session->setFlash('success', 'Thanks for registering ' . $user->getUserName());
+                    Application::$app->response->redirect('/');
+                    exit;
+                }
+                // not validated... try again
+                $this->setLayout('auth');
+                return $this->render('register', [
+                    'model' => $user,
+                    'title' => 'Invitation Sign up',
+                ]);
             }
+            // get, invite token verified
             $this->setLayout('auth');
             return $this->render('register', [
                 'model' => $user,
-                'title' => 'Invitation Signup',
+                'title' => 'Sign up for ' . $user->email
             ]);
         }
+        // get, no invite token
         $this->setLayout('auth');
         return $this->render('register', [
-            'model' => $user,
-            'title' => 'Invitation Signup'
+            'title' => 'Invitation Sign up'
         ]);
     }
 
@@ -79,10 +98,10 @@ class AuthController extends Controller
     public function usersList()
     {
         $members = (new GetUsers)->execute(new GetUsers);
-        $invitatioons = (new GetInvitations)->execute(new GetInvitations);
+        $invitations = (new GetInvitations)->execute(new GetInvitations);
         $partisipants = [
             'members' => $members,
-            'invitations' => $invitatioons
+            'invitations' => $invitations
         ];
 
         return $this->render('users-list',
@@ -120,8 +139,8 @@ class AuthController extends Controller
             Application::$app->session->setFlash('danger', "EMAIL: Entry with this email already a member");
         }
         if ($invite->validate() && !$isMember && $invite->execute()) {
-            $registerHref = Application::$app->config['domain'] . "/register?email=" . $invite->email . "&invite_token=" . $invite->invitecode;
-            $domainHref = "https://" . Application::$app->config['domain'];
+            $registerHref = $_ENV['DOMAIN_ADDRESS'] . "/register?invitecode=" . $invite->invitecode;
+            $domainHref = $_ENV['DOMAIN_ADDRESS'];
             $inviteMsg = new InviteMsg($registerHref, $domainHref, $invite->email);
             try {
                 Application::$app->mail->addAddress($invite->email);
@@ -156,8 +175,8 @@ class AuthController extends Controller
 
             if ($recoverPassword->validate() && $foundUser && $recoverPassword->updateAttributesWhere('email')) {
                     $recoverPassword->setUsername($foundUser->username) ?? '';
-                $resetHref = Application::$app->config['domain'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
-                $domainHref = "https://" . Application::$app->config['domain'];
+                $resetHref = $_ENV['DOMAIN_ADDRESS'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
+                $domainHref = $_ENV['DOMAIN_ADDRESS'];
                 $passwordResetMsg = new PasswordResetMsg($resetHref, $domainHref, $recoverPassword->username);
                 try {
                     Application::$app->mail->addAddress($recoverPassword->email);

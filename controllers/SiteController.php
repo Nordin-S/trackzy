@@ -18,7 +18,7 @@ use app\models\User;
  */
 class SiteController extends Controller
 {
-    public function siteSetup(Request $request)
+    public function setupAdmin(Request $request)
     {
         // if a user already exists block visit to this page
         if (Application::$app->db->getAllUsersEmail()) {
@@ -36,9 +36,17 @@ class SiteController extends Controller
             }
         }
         $this->setLayout('auth');
-        return $this->render('setup', [
+        return $this->render('setup-admin', [
             'model' => $user,
-            'title' => 'Site Setup'
+            'title' => 'Create admin'
+        ]);
+    }
+    public function welcome()
+    {
+//        $emptyUserModel = new User();
+////        $this->setLayout('main');
+        return $this->render('welcome', [
+            'title' => 'Welcome to Trackzy!'
         ]);
     }
 

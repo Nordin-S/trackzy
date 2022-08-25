@@ -13,10 +13,14 @@
     --bg-grey-blue: rgba(35, 36, 43, 1);
     --bg-dark-blue: rgba(20, 22, 30, 1);
     --bg-dark-blue-06: rgba(20, 22, 30, 0.6);
+    --bg-dark-blue-08: rgba(20, 22, 30, 0.8);
     --bg-green: rgba(27, 89, 87, 1);
+    --bg-white: rgba(250, 250, 250, 1);
+    --bg-white-08: rgba(250, 250, 250, 0.8);
     --details-stroke: rgba(71, 71, 71, 1);
     --details-stroke-brigth: rgba(138, 138, 138, 1);
     --text-white: rgba(242, 242, 243, 1);
+    --text-white2: rgba(200, 200, 200, 1);
     --text-gray: rgba(108, 104, 111, 1);
     --text-gray-light: rgba(138, 134, 141, 1);
     --text-black: rgba(35, 35, 36, 1);
@@ -36,63 +40,69 @@ body {
     background-color: var(--bg-dark-blue);
     font-family: 'Varela Round', sans-serif;
     color: var(--text-white);
+    /*border: 1px solid red;*/
 }
+
 #logo-hero {
     position: relative;
-    left: -22px;
+    left: -30px;
     width: 128px;
     margin: 20px;
 }
-#invite-loader{
+
+#invite-loader {
     width: 38px;
     margin: 0 5px 0 0;
-    display:none;
-  animation-name: spin;
-  animation-duration: 1000ms;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  /* transform: rotate(3deg); */
-   /* transform: rotate(0.3rad);/ */
-   /* transform: rotate(3grad); */
-   /* transform: rotate(.03turn);  */
+    display: none;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    /* transform: rotate(3deg); */
+    /* transform: rotate(0.3rad);/ */
+    /* transform: rotate(3grad); */
+    /* transform: rotate(.03turn);  */
 }
 
 @keyframes spin {
     from {
-        transform:rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-        transform:rotate(360deg);
+        transform: rotate(360deg);
     }
 }
+
 .container {
-    width: 100%;
     padding-right: 0;
     padding-left: 0;
     margin-right: auto;
     margin-left: auto;
 }
+
 nav {
     z-index: 9999;
 }
 
 .ballury-wrap {
-    position: fixed;
-    width: 100vw;
+    position: absolute;
+    width: 100%;
     height: 100vh;
     z-index: -100;
 }
 
 .ballury-ball {
     filter: opacity(40%);
-    background-image: radial-gradient(circle at top, var(--bg-green) 0%, var(--bg-dark-blue) 90%);
+    background-image: radial-gradient(circle at top, var(--bg-green) 0%, var(--bg-dark-blue) 70%);
 }
+
 hr {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  border: 0;
-  border-top: 1px solid var(--details-stroke);
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    border: 0;
+    border-top: 1px solid var(--details-stroke);
 }
+
 #bs-override .bg-light {
     background-color: var(--text-white) !important;
 }
@@ -115,23 +125,31 @@ hr {
     background-color: var(--bg-grey-blue);
 }
 
+.table {
+    margin-bottom: 0;
+}
 .card-table thead {
     background-color: var(--bg-dark-blue);
     border: 1px solid var(--details-stroke);
     height: 50px;
 }
+
 #bs-override .table-dark {
     color: var(--text-white) !important;
     background: var(--bg-grey-blue);
     border-radius: 10px;
 }
+
 #bs-override table thead th {
     vertical-align: middle;
 }
+
 .table td, .table th {
     padding: 0 .45rem;
     vertical-align: middle;
     border-top: 1px solid var(--details-stroke-brigth);
+    width: auto;
+
 }
 
 table th:first-child {
@@ -141,8 +159,9 @@ table th:first-child {
 table th:last-child {
     border-radius: 0 10px 10px 0;
 }
+
 tbody tr {
-    display: none;
+    /*display: none;*/
 }
 
 #bs-override select,
@@ -190,4 +209,151 @@ tbody tr {
 
 .dropdown-menu .dropdown-divider {
     border-top: 1px solid var(--details-stroke)
+}
+
+
+.arrow-read-down {
+    filter: opacity(40%);
+}
+
+.hero-header {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 5rem 0;
+}
+
+.hero-header h1, .hero-header .h1 {
+    font-family: "Varela Round", sans-serif;
+    font-size: 2rem;
+    line-height: 3rem;
+    letter-spacing: 0.8rem;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.hero-header h2, .hero-header .h2 {
+    max-width: 20rem;
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .hero-header h1, .hero-header .h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-header {
+        height: 100vh;
+        padding: 0;
+    }
+
+    .hero-header h2, .hero-header .h2 {
+        max-width: 30rem;
+        font-size: 1.25rem;
+    }
+}
+
+
+.instructions-section {
+    background: #d2deef url("../img/instructions.jpg") no-repeat bottom center;
+    background-size: 100% auto;
+    position: relative;
+    /*overflow: hidden;*/
+    margin: 0;
+}
+
+.instructions-section .row {
+    padding: 6rem 0 0 0;
+    margin: 0;
+}
+
+.instructions-section p {
+    margin-bottom: 5rem;
+}
+.instructions-section .list-group {
+    margin-bottom: 10rem;
+}
+@media (min-width: 768px) {
+    .instructions-section .list-group {
+        margin-bottom: 30rem;
+    }
+}
+
+.instructions-section .instructions-item {
+    background-color: var(--btn-main-normal);
+    opacity: 0.7;
+    color: var(--text-white);
+    border: 1px solid var(--btn-main-active);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.contact-section {
+    padding-top: 1rem;
+}
+
+.contact-section .card {
+    border: 0;
+    border-bottom: 0.25rem solid #64a19d;
+}
+
+.contact-section .card h4, .contact-section .card .h4 {
+    font-size: 0.8rem;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+}
+
+.contact-section .card hr {
+    border-color: #64a19d;
+    border-width: 0.25rem;
+    width: 3rem;
+}
+
+.contact-section .social {
+    margin-top: 5rem;
+}
+
+.contact-section .social a {
+    text-align: center;
+    height: 3rem;
+    width: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 100%;
+    line-height: 3rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-section .social a:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-section .social a:active {
+    color: #fff;
+}
+
+.smooth-anchor {
+    color: var(--text-white);
+    position: relative;
+    opacity: 0.5;
+    text-align: center;
+    display: inline-block;
+    width: 50px;
+}
+.smooth-anchor i{
+    position: absolute;
+    left: 0;
+
+}
+.smooth-anchor:hover {
+    opacity: 1.0;
+}
+.footer {
+    padding: 5rem 0;
 }

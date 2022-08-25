@@ -75,6 +75,18 @@ abstract class DbModel extends Model
         return $statement->fetchObject(static::class) ?? false;
     }
 
+    public static function delete($where, $classType)
+    {
+        $tableName = $classType->tableName();
+        $attributes = array_keys($where);
+        $sql = implode("AND ", array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $statement = self::prepare("DELETE FROM $tableName WHERE $sql");
+        foreach ($where as $key => $item) {
+            $statement->bindValue(":$key", $item);
+        }
+
+        return $statement->execute();
+    }
     public static function getAllRows($classType)
     {
         $tableName = $classType->tableName();
