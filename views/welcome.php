@@ -1,8 +1,14 @@
 <?php
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
 /** @var $title \app\core\View */
 $this->title = $title;
 ?>
-
 
 <!-- Hero head-->
 <header class="hero-header">
@@ -29,34 +35,56 @@ $this->title = $title;
             </p>
             <div class="list-group">
                 <div class="w-100 justify-content-between text-left">
-                    <div class="list-group-item list-group-item-action instructions-item">
+                    <div class="alert alert-secondary">
                         <h4 class="mb-1">1. Hello World!</h4>
                         <p class="mb-1">
                             If you see this page for the first time, then congratulations you are an administrator.
                         </p>
                     </div>
-                    <div class="list-group-item list-group-item-action instructions-item">
+                    <div class="alert alert-secondary">
                         <h4 class="mb-1">2. Log in/Log out and password reset</h4>
                         <p class="mb-1">
                             Lets begin by testing the log in system.
                             Go ahead and log out, go to the login page and press forgot password, once you have reset
-                            your email log back in again. Don't forget to try wrong inputs and such.
-                        </p>
-                    </div>
-                    <div class="list-group-item list-group-item-action instructions-item">
-                        <h4 class="mb-1">3. Manage users</h4>
-                        <p class="mb-1">
-                            If you see this page for the first time, then congratulations you are an administrator.
-                            Lets test out the invitations/registrations system for new users.
+                            your password log back in again. Don't forget to try wrong inputs and such.
 
                         </p>
+
                     </div>
-                    <div class="list-group-item list-group-item-action instructions-item">
+                    <div class="alert alert-secondary">
                         <h4 class="mb-1">3. Manage users</h4>
                         <p class="mb-1">
-                            If you see this page for the first time, then congratulations you are an administrator.
-                            Lets test out the invitations/registrations system for new users.
-
+                            New users can't register on this site without being invited. Head on to the users page
+                            and try inviting a new user(you need to have a second email address to test this feature).
+                            Make sure the new user you invite has author or moderator as role. Hint, you will get a
+                            email to the newly invited users mail account. Before you register with the new user try to
+                            revoke the invitation. Once revoked, redo the invite(again as an author or moderator).
+                            <br>
+                            While you are here, go ahead and try deleting your own account.
+                            <br>
+                            Now, log out with your admin account and log in with the new user.
+                        </p>
+                    </div>
+                    <div class="alert alert-secondary">
+                        <h4 class="mb-1">4. 403/404 errors</h4>
+                        <p class="mb-1">
+                            Try getting into the users page again, then try to change the address bar adding a random
+                            word at the end of the url.
+                        </p>
+                    </div>
+                    <div class="alert alert-secondary">
+                        <h4 class="mb-1">5. User profile</h4>
+                        <p class="mb-1">
+                            Using the main navbar open the dropdown menu on the right side of the navbar and
+                            enter your profile page, you can also get to your profile or other users profile from the
+                            users page but only if you are an administrator.
+                        </p>
+                    </div>
+                    <div class="alert alert-secondary">
+                        <h4 class="mb-1">6. Extra</h4>
+                        <p class="mb-1">
+                            Don't forget to try out responsiveness of pages, resizing page font using buttons stuck to
+                            the bottom of the scree. And lastly turn on you systems narrator and test out accessibility.
                         </p>
                     </div>
                 </div>

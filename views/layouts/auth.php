@@ -1,8 +1,14 @@
 <?php
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
 use app\core\Application;
 include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
 ?>
-
     <div class="container">
         <?php
         require_once($_ENV['ROOT_DIR'] . 'views/layouts/warnings.php')

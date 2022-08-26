@@ -1,3 +1,11 @@
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
+
 $(document).ready(function () {
     // flash card fade out
     jQuery("#flash-alert").delay(3500).fadeOut("slow");

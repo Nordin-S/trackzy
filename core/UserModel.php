@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm
- * USER: Nordin Suleimani <nordin.suleimani@email.com>
- * DATE: 8/17/2022
- * TIME: 2:49 AM
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
  */
 
 namespace app\core;

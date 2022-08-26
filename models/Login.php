@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm
- * USER: Nordin Suleimani <nordin.suleimani@email.com>
- * DATE: 8/16/2022
- * TIME: 10:19 PM
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
  */
 
 namespace app\models;
@@ -12,9 +13,6 @@ use app\core\Application;
 
 class Login extends User
 {
-//    public string $email = '';
-//    public string $password = '';
-
     public function login()
     {
         $user = (new User)->findUser(['email' => $this->email], new User);

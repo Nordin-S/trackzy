@@ -1,3 +1,12 @@
+
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
+
 :root {
     /* Color styles */
     --prio-major: rgba(255, 237, 142, 1);
@@ -287,10 +296,10 @@ tbody tr {
 }
 
 .instructions-section .instructions-item {
-    background-color: var(--btn-main-normal);
-    opacity: 0.7;
-    color: var(--text-white);
-    border: 1px solid var(--btn-main-active);
+    /*background-color: #EFE3D2;*/
+    /*opacity: 0.7;*/
+    /*color: var(--text-black);*/
+    /*border: 1px solid var(--btn-main-active);*/
     border-radius: 10px;
     margin-bottom: 1rem;
 }
@@ -362,4 +371,17 @@ tbody tr {
 	clip: rect(0,0,0,0) !important;
 	white-space: nowrap !important;
 	border: 0 !important;
+}
+
+.font-resizer div{
+    text-align: center;
+    display: inline-block;
+    border-radius: 100px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--btn-main-normal);
+}
+.font-resizer i{
+    /*justify-content: center;*/
+    padding:4px;
 }

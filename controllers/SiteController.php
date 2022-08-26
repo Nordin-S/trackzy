@@ -1,4 +1,11 @@
 <?php
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
 
 namespace app\controllers;
 
@@ -41,6 +48,7 @@ class SiteController extends Controller
             'title' => 'Create admin'
         ]);
     }
+
     public function welcome()
     {
 //        $emptyUserModel = new User();

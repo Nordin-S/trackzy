@@ -1,4 +1,11 @@
 <?php
+/**
+ * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * DATE: 8/15/2022
+ * TIME: 11:20 PM
+ * COURSE: Webbprogrammering DT058G
+ * SUPERVISOR: Mikael Hasselmalm
+ */
 
 namespace app\core;
 
@@ -32,17 +39,6 @@ class Request
     public function getBody()
     {
         $body = [];
-
-//        if($this->method() === 'get'){
-//            foreach ($_GET as $key => $value) {
-//                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-//            }
-//        }
-//        if($this->method() === 'post'){
-//            foreach ($_POST as $key => $value) {
-//                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-//            }
-//        }
         if ($this->method() === 'get' || $this->method() === 'post') {
             foreach ($_GET as $key => $value) {
                 try {
