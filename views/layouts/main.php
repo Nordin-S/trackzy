@@ -1,11 +1,12 @@
 <?php
+
 use app\core\Application;
 
 include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
     <a class="navbar-brand" href="/">
-        <img src="/img/trackzy-logo2.svg" width="30" height="30" alt="">
+        <img src="/img/trackzy-logo2.svg" width="30" height="30" alt="Trackzy logo, links to main page">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +25,9 @@ include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
                 <li class="nav-item<?php echo ($this->title === 'Registered users list') ? ' active' : ''; ?>">
                     <a class="nav-link" href="/users-list">Users</a>
                 </li>
-                <div class="dropdown-divider d-lg-none"></div>
                 <li class="nav-item <?php echo ($this->title === 'Profile') ? ' active' : ''; ?> d-lg-none">
-                    <a class="nav-link" href="/profile">Profile</a>
+                    <hr class="dropdown-divider d-lg-none">
+                    <a class="nav-link" href="/profile?id=<?php echo $_SESSION['user'] ?>">Profile</a>
                 </li>
                 <li class="nav-item d-lg-none">
                     <a class="nav-link" href="/logout">Logout</a>
@@ -52,7 +53,7 @@ include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
                     <div class="dropdown-menu dropdown-menu-right pb-3" aria-labelledby="login-menu">
                         Signed in as <?php echo Application::$app->user->getUsername(); ?>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/profile?id=<?php echo $_SESSION['user'] ?>">Profile</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
                 </li>
@@ -60,21 +61,6 @@ include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
         <?php endif; ?>
     </div>
 </nav>
-<?php if (Application::$app->session->getFlash('success')): ?>
-    <div class="alert alert-success flash-alert" id="flash-alert">
-        <?php echo Application::$app->session->getFlash('success') ?>
-    </div>
-<?php endif; ?>
-<?php if (Application::$app->session->getFlash('warning')): ?>
-    <div class="alert alert-warning flash-alert" id="flash-alert">
-        <?php echo Application::$app->session->getFlash('warning') ?>
-    </div>
-<?php endif; ?>
-<?php if (Application::$app->session->getFlash('danger')): ?>
-    <div class="alert alert-danger flash-alert" id="flash-alert">
-        <?php echo Application::$app->session->getFlash('danger') ?>
-    </div>
-<?php endif; ?>
 {{content}}
 
 <?php

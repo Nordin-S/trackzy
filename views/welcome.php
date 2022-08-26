@@ -9,11 +9,12 @@ $this->title = $title;
     <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
         <div class="d-flex justify-content-center">
             <div class="text-center">
-                <h1 class="mx-auto my-0 text-uppercase">INTRODUCING TRACKZY</h1>
+                <h1 class="mx-auto my-0 text-uppercase" tabindex="-1">INTRODUCING TRACKZY</h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">A MVC based issue tracker made as a university class
                     project.</h2>
-                <a href="#instructions" class="smooth-anchor"><i
-                            class="fa-solid fa-circle-arrow-down fa-2xl arrow-read-down"></i></a>
+                <a href="#instructions" class="smooth-anchor">
+                    <span class="vis-hidden">Hit enter to scroll down to testing instructions</span>
+                    <i class="fa-solid fa-circle-arrow-down fa-2xl arrow-read-down"></i></a>
             </div>
         </div>
     </div>
@@ -40,6 +41,14 @@ $this->title = $title;
                             Lets begin by testing the log in system.
                             Go ahead and log out, go to the login page and press forgot password, once you have reset
                             your email log back in again. Don't forget to try wrong inputs and such.
+                        </p>
+                    </div>
+                    <div class="list-group-item list-group-item-action instructions-item">
+                        <h4 class="mb-1">3. Manage users</h4>
+                        <p class="mb-1">
+                            If you see this page for the first time, then congratulations you are an administrator.
+                            Lets test out the invitations/registrations system for new users.
+
                         </p>
                     </div>
                     <div class="list-group-item list-group-item-action instructions-item">

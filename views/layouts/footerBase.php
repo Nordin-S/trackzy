@@ -1,15 +1,22 @@
-<!-- Contact-->
-<section class="contact-section bg-black">
-    <div class="container px-4 px-lg-5">
-        <div class="social d-flex justify-content-center">
-            <a class="mx-2" href="https://www.linkedin.com/in/nordins/"><i class="fab fa-linkedin"></i></a>
-            <a class="mx-2" href="https://github.com/Nordin-S"><i class="fab fa-github"></i></a>
-            <a class="mx-2" href="https://twitter.com/NordinSul"><i class="fab fa-twitter"></i></a>
-        </div>
-    </div>
-</section>
 <!-- Footer-->
 <footer class="footer bg-black small text-center text-white-50">
+    <!-- Contact-->
+    <div class="container px-4 px-lg-5">
+        <div class="social d-flex justify-content-center">
+            <a class="mx-2" href="https://www.linkedin.com/in/nordins/">
+                <span class="vis-hidden">nordin on linkedin</span>
+                <i class="fab fa-linkedin fa-2xl"></i>
+            </a>
+            <a class="mx-2" href="https://github.com/Nordin-S">
+                <span class="vis-hidden">nordin on github</span>
+                <i class="fab fa-github fa-2xl"></i>
+            </a>
+            <a class="mx-2" href="https://twitter.com/NordinSul">
+                <span class="vis-hidden">nordin on twitter</span>
+                <i class="fab fa-twitter fa-2xl"></i>
+            </a>
+        </div>
+    </div>
     <div class="container px-4 px-lg-5">Copyright &copy; Trackzy 2022 - by Nordin Suleimani</div>
 </footer>
 <!-- Optional JavaScript -->

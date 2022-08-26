@@ -37,7 +37,7 @@ class RecoverPassword extends DbModel
 
     public function attributes(): array
     {
-        return ['email', 'recovery_token', 'token_expiration'];
+        return ['email', 'recovery_token', 'token_expiration', 'phrase'];
     }
 
     public static function primaryKey(): string
@@ -49,6 +49,7 @@ class RecoverPassword extends DbModel
     {
         return [
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'email' => [self::RULE_REQUIRED],
         ];
     }
 

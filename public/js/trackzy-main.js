@@ -3,7 +3,7 @@ $(document).ready(function () {
     jQuery("#flash-alert").delay(3500).fadeOut("slow");
 
     // loading for invite form
-    $("#invite").on("click", function () {
+    $(".loading-btns").on("click", function () {
         $('#invite-loader').css('display', 'block');
     });
 

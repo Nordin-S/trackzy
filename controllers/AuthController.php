@@ -228,9 +228,24 @@ class AuthController extends Controller
     }
 
 
-    public function profile()
+    public function profile(Request $request)
     {
-        return $this->render('profile', ['title' => 'Profile']);
+        $user = new User();
+        $user->loadData($request->getBody());
+        $user = $user->findUser(['id' => $user->id], new User());
+        if (!$user) {
+            Application::$app->session->setFlash('user', 'Could not find specified user');
+            Application::$app->response->redirect('/');
+            exit;
+        }
+//        $this->setLayout('auth');
+        return $this->render('profile', [
+            'model' => $user,
+            'title' => 'Profile for ' . $user->username
+        ]);
+
+
+        return $this->render('profile', ['model' => $user, 'title' => 'Profile']);
     }
 
     public function viewIssue()
