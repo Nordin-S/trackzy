@@ -7,7 +7,8 @@
  * SUPERVISOR: Mikael Hasselmalm
  */
 use app\core\Application;
-include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php')
+include_once($_ENV['ROOT_DIR'] . 'views/layouts/baseHeader.php');
+include_once($_ENV['ROOT_DIR'] . 'views/layouts/warnings.php');
 ?>
     <div class="container">
         <?php

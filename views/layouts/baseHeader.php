@@ -32,9 +32,6 @@
     <title>Trackzy <?php echo $title; ?></title>
 </head>
 <body id="bs-override">
-<?php
-include_once($_ENV['ROOT_DIR'] . 'views/layouts/warnings.php')
-?>
 <div class="ballury-wrap">
     <div class="ballury-wrap ballury-ball"></div>
 </div>
