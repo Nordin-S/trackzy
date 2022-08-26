@@ -206,9 +206,7 @@ class AuthController extends Controller
 
             if (!$foundUser) {
                 $recoverPassword->addError('email', 'User with given email does not exist');
-            }
-
-            if ($recoverPassword->validate() && $foundUser && $recoverPassword->updateAttributesWhere('email')) {
+            } else if ($recoverPassword->validate() && $recoverPassword->updateAttributesWhere('email')) {
                     $recoverPassword->setUsername($foundUser->username) ?? '';
                 $resetHref = $_ENV['DOMAIN_ADDRESS'] . "/reset-password?email=" . $recoverPassword->email . "&recovery_token=" . $recoverPassword->recovery_token;
                 $domainHref = $_ENV['DOMAIN_ADDRESS'];
