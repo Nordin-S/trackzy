@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'nordin'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_02F2350178604309BCECF2DEBF7BB12A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FB9C40675C1344ED837DF578CB7F88EB }}
           package: .
