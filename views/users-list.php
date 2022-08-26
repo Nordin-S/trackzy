@@ -11,9 +11,10 @@ $this->title = $title;
     <h2>Invite new user</h2>
     <form action="/invite" method="post">
         <div class="d-flex flex-row px-2">
+            <label for="email" class="vis-hidden">Invite email: </label>
             <input type="text" class="mr-2 w-50 p-2" value="" name="email" placeholder="Invite email">
+            <label for="role" class="vis-hidden">Role: </label>
             <select class="form-control mr-2 w-25 p-2" id="role" name="role">
-                <option value="">Role</option>
                 <option value="admin">Admin</option>
                 <option value="moderator">Moderator</option>
                 <option value="author">Author</option>
