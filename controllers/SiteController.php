@@ -1,10 +1,11 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
  * SUPERVISOR: Mikael Hasselmalm
+ * DESCRIPTION: takes care of get routes and post routes that don't need authorization
  */
 
 namespace app\controllers;
@@ -25,6 +26,10 @@ use app\models\User;
  */
 class SiteController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return string|void
+     */
     public function setupAdmin(Request $request)
     {
         // if a user already exists block visit to this page
@@ -49,15 +54,19 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function welcome()
     {
-//        $emptyUserModel = new User();
-////        $this->setLayout('main');
         return $this->render('welcome', [
             'title' => 'Welcome to Trackzy!'
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function login()
     {
         $loginForm = new User();
@@ -68,6 +77,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function recoverPassword()
     {
         $recoverPassword = new RecoverPassword();
@@ -78,6 +90,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return string|void
+     */
     public function resetPassword(Request $request, Response $response)
     {
         $resetPassword = new ResetPassword();

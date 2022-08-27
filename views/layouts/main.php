@@ -1,6 +1,6 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
@@ -55,7 +55,7 @@ include_once($_ENV['ROOT_DIR'] . 'views/layouts/warnings.php');
             <ul class="navbar-nav flex-row ml-md-auto d-none d-lg-flex">
                 <li class="nav-item dropdown show">
                     <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="login-menu"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="toggle navigation menu">
                         <i class="fa-solid fa-circle-user fa-lg"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right pb-3" aria-labelledby="login-menu">

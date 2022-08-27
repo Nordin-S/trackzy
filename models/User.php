@@ -1,6 +1,6 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
@@ -47,7 +47,6 @@ class User extends UserModel
 
     public function attributes(): array
     {
-//        return ['email', 'username', 'password', 'role', 'avatar', 'status', 'verified'];
         return ['email', 'username', 'password', 'status', 'role'];
     }
 

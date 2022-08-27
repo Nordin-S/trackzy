@@ -1,6 +1,6 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
@@ -18,8 +18,8 @@ $this->title = $title;
                 <h1 class="mx-auto my-0 text-uppercase" tabindex="-1">INTRODUCING TRACKZY</h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5">A MVC based issue tracker made as a university class
                     project.</h2>
-                <a href="#instructions" class="smooth-anchor">
-                    <span class="vis-hidden">Hit enter to scroll down to testing instructions</span>
+                <a href="#instructions" class="smooth-anchor" tabindex="-1">
+<!--                    <span class="vis-hidden">Hit enter to scroll down to testing instructions</span>-->
                     <i class="fa-solid fa-circle-arrow-down fa-2xl arrow-read-down"></i></a>
             </div>
         </div>

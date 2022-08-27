@@ -1,10 +1,11 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
  * SUPERVISOR: Mikael Hasselmalm
+ * DESCRIPTION: takes care of get routes and post routes that might require authorization
  */
 
 namespace app\controllers;
@@ -37,9 +38,14 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * registration for invited users
+     * @param Request $request
+     * @return string|void
+     */
     public function register(Request $request)
     {
-        $user = new Login();
+        $user = new User();
         $user->loadData($request->getBody());
         $invitation = new GetInvitations;
         //set role and email from invitation link
@@ -79,6 +85,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return string|void
+     */
     public function login(Request $request, Response $response)
     {
         $loginForm = new Login();
@@ -96,6 +107,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return void
+     */
     public function logout(request $request, Response $response)
     {
         Application::$app->logout();
@@ -103,6 +119,9 @@ class AuthController extends Controller
         exit;
     }
 
+    /**
+     * @return string
+     */
     public function usersList()
     {
         // get all members and invitations and send to view
@@ -118,6 +137,10 @@ class AuthController extends Controller
         exit;
     }
 
+    /**
+     * @param Request $request
+     * @return void
+     */
     public function deleteUser(Request $request)
     {
         $user = new User();
@@ -135,6 +158,10 @@ class AuthController extends Controller
         exit;
     }
 
+    /**
+     * @param Request $request
+     * @return void
+     */
     public function revokeInvitation(Request $request)
     {
         $invitation = new GetInvitations();
@@ -164,6 +191,10 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return void
+     */
     public function invite(Request $request)
     {
         $invite = new Invite();
@@ -197,6 +228,11 @@ class AuthController extends Controller
         exit;
     }
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @return string|void
+     */
     public function recoverPassword(Request $request, Response $response)
     {
         $recoverPassword = new RecoverPassword();
@@ -233,6 +269,10 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return string|void
+     */
     public function profile(Request $request)
     {
         $user = new User();
@@ -243,7 +283,6 @@ class AuthController extends Controller
             Application::$app->response->redirect('/');
             exit;
         }
-//        $this->setLayout('auth');
         return $this->render('profile', [
             'model' => $user,
             'title' => 'Profile for ' . $user->username
@@ -251,6 +290,11 @@ class AuthController extends Controller
 
 
         return $this->render('profile', ['model' => $user, 'title' => 'Profile']);
+    }
+
+    public function issues()
+    {
+        return $this->render('issues', ['title' => 'View Issues']);
     }
 
     public function viewIssue()
@@ -263,8 +307,4 @@ class AuthController extends Controller
         return $this->render('new-issue', ['title' => 'Create Issue']);
     }
 
-    public function issues()
-    {
-        return $this->render('issues', ['title' => 'View Issues']);
-    }
 }

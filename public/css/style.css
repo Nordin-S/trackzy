@@ -1,6 +1,6 @@
 
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
@@ -373,7 +373,7 @@ tbody tr {
 	border: 0 !important;
 }
 
-.font-resizer div{
+.font-resizer a{
     text-align: center;
     display: inline-block;
     border-radius: 100px;
@@ -384,4 +384,8 @@ tbody tr {
 .font-resizer i{
     /*justify-content: center;*/
     padding:4px;
+}
+
+#bs-override .dropdown-menu a:focus {
+    background-color: var(--btn-main-active) !important;
 }

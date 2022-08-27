@@ -1,6 +1,6 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
@@ -29,6 +29,11 @@
     </div>
     <div class="container px-4 px-lg-5">Copyright &copy; Trackzy 2022 - by Nordin Suleimani</div>
 </footer>
+<div class="font-resizer navbar fixed-bottom justify-content-center">
+    <a class="bg-dark mx-2" onclick="document.body.style.fontSize ='1em'" tabindex="0"><span class="vis-hidden">set font size to normal</span><i class="fa-solid fa-a fa-sm py-4"></i></a>
+    <a class="bg-dark mx-2" onclick="document.body.style.fontSize ='1.2em'" tabindex="0"><span class="vis-hidden">set font size to medium</span><i class="fa-solid fa-a fa-lg py-4"></i></a>
+    <a class="bg-dark mx-2" onclick="document.body.style.fontSize ='1.4em'" tabindex="0"><span class="vis-hidden">set font size to large</span><i class="fa-solid fa-a fa-2xl py-4"></i></a>
+</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"

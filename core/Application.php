@@ -1,10 +1,12 @@
 <?php
 /**
- * BY: Nordin Suleimani <nordin.suleimani@email.com>
+ * BY: Nordin Suleimani <nordin.suleimani@gmail.com>
  * DATE: 8/15/2022
  * TIME: 11:20 PM
  * COURSE: Webbprogrammering DT058G
  * SUPERVISOR: Mikael Hasselmalm
+ * DESCRIPTION: site wide information is kept and tracked here such as session, email, controllers,
+ * user model, db, views and etc
  */
 
 namespace app\core;
@@ -49,7 +51,6 @@ class Application
 
 
         $this->mail = new PHPMailer();
-//        $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;
         $this->mail->SMTPDebug = 0;
         $this->mail->isSMTP();
         $this->mail->Host = 'smtp.gmail.com';
