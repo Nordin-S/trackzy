@@ -18,9 +18,10 @@ class Database
     public function __construct()
     {
         $host = $_ENV['DB_HOST'];
+        $database = $_ENV['DB_DATABASE'];
         $user = $_ENV['DB_USER'];
         $password = $_ENV['DB_PASSWORD'];
-        $this->pdo = new \PDO($host, $user, $password);
+        $this->pdo = new \PDO("mysql:host=$host;dbname=$database;", $user, $password);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
