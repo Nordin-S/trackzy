@@ -37,7 +37,7 @@ $avatarImgAlt = $userRole . ' avatar';
                             <span>Member since <?php echo date("F d, Y", strtotime($model->created_at)) ?></span>
                         </div>
                         <div class="mt-3 text-center">
-                            <a href="<?php echo $model->email ?>" class="btn mt-5 btn-primary rounded-lg">Contact</a>
+                            <a href="mailto:<?php echo $model->email ?>" class="btn mt-5 btn-primary rounded-lg">Contact</a>
                         </div>
                     </div>
                 </div>

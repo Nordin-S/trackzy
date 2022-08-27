@@ -8,7 +8,7 @@
 
 $(document).ready(function () {
     // flash card fade out
-    jQuery("#flash-alert").delay(3500).fadeOut("slow");
+    $("#flash-alert").delay(3500).fadeOut("slow");
 
     // loading for invite form
     $(".loading-btns").on("click", function () {
